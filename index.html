@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -27,13 +26,13 @@
   html, body { background: var(--bg); color: var(--ink); font-family: 'Heebo', sans-serif; line-height: 1.5; }
   body { padding: 24px 16px 80px; }
   .container { max-width: 1100px; margin: 0 auto; }
-
+ 
   .hero { border-bottom: 2px solid var(--line); padding-bottom: 20px; margin-bottom: 32px; }
   .eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; font-weight: 700; }
   h1 { font-family: 'Frank Ruhl Libre', serif; font-weight: 900; font-size: clamp(28px, 5vw, 44px); letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 12px; }
   .lede { font-size: 16px; color: var(--ink-soft); max-width: 720px; }
   .lede strong { color: var(--ink); font-weight: 700; }
-
+ 
   .spread-card {
     background: var(--paper);
     border: 1.5px solid var(--line);
@@ -52,10 +51,10 @@
     .spread-card { grid-template-columns: 1fr; text-align: center; }
     .spread-card .arrow { transform: rotate(90deg); }
   }
-
+ 
   .grid { display: grid; grid-template-columns: 380px 1fr; gap: 28px; margin-top: 32px; }
   @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-
+ 
   .panel { background: var(--paper); border: 1.5px solid var(--line); padding: 24px; }
   .panel-title { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 20px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
   .field { margin-bottom: 20px; }
@@ -83,14 +82,14 @@
   .seg button:last-child { border-right: none; }
   .seg button.active { background: var(--ink); color: var(--paper); font-weight: 700; }
   .seg button:hover:not(.active) { background: var(--line-soft); }
-
+ 
   .pattern-help {
     font-size: 12px;
     color: var(--ink-soft);
     margin-top: 6px;
     font-style: italic;
   }
-
+ 
   .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
   @media (max-width: 540px) { .results-grid { grid-template-columns: 1fr; } }
   .stat {
@@ -106,7 +105,7 @@
   .stat-value { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 28px; line-height: 1.1; font-variant-numeric: tabular-nums; }
   .stat-sub { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
   .stat.feature .stat-sub { color: #d1d5db; }
-
+ 
   .chart-panel { background: var(--paper); border: 1.5px solid var(--line); padding: 24px; }
   .chart-title { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; gap: 16px; flex-wrap: wrap; }
   .chart-title h2 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 18px; }
@@ -118,7 +117,7 @@
     margin: 20px 0 10px; padding-top: 16px; border-top: 1px dashed var(--line-soft);
   }
   .chart-note { font-size: 12px; color: var(--ink-soft); margin-top: 6px; font-style: italic; }
-
+ 
   .compare { background: var(--paper); border: 1.5px solid var(--line); padding: 24px; margin-top: 24px; }
   .compare h2 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 20px; margin-bottom: 20px; }
   .compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line-soft); align-items: baseline; }
@@ -128,13 +127,13 @@
   .compare-row .num { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; }
   .compare-row.highlight { background: var(--sun-soft); margin: 0 -24px; padding: 14px 24px; border-bottom: 1px solid var(--line-soft); }
   .compare-batt-label { color: var(--battery); font-weight: 700; font-size: 11px; }
-
+ 
   .assumptions { margin-top: 32px; padding: 20px 24px; border: 1px dashed var(--line-soft); background: rgba(0,0,0,0.02); }
   .assumptions h3 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 16px; margin-bottom: 12px; }
   .assumptions ul { list-style: none; padding: 0; }
   .assumptions li { font-size: 13px; color: var(--ink-soft); padding: 4px 0; padding-right: 18px; position: relative; }
   .assumptions li::before { content: "—"; position: absolute; right: 0; color: var(--ink-soft); }
-
+ 
   .insight {
     background: var(--ink);
     color: var(--paper);
@@ -146,7 +145,7 @@
   .insight h3 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 22px; margin-bottom: 10px; }
   .insight p { font-size: 15px; line-height: 1.6; color: #e5e5e5; }
   .insight strong { color: var(--paper); }
-
+ 
   /* ===== Findings Section ===== */
   .findings {
     margin-top: 48px;
@@ -169,7 +168,7 @@
     line-height: 1.6;
   }
   .findings-lede strong { color: var(--ink); font-weight: 700; }
-
+ 
   .findings-headline {
     display: flex;
     align-items: baseline;
@@ -206,7 +205,7 @@
     .findings-headline { flex-direction: column; gap: 8px; }
     .findings-stat-number { font-size: 60px; }
   }
-
+ 
   .findings-tariff-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -246,7 +245,7 @@
     font-weight: 500;
   }
   .findings-card-note { font-size: 13px; color: var(--ink); line-height: 1.5; }
-
+ 
   .findings-subhead {
     font-family: 'Frank Ruhl Libre', serif;
     font-weight: 700;
@@ -255,7 +254,7 @@
     padding-bottom: 8px;
     border-bottom: 1px solid var(--line-soft);
   }
-
+ 
   .findings-table {
     width: 100%;
     border-collapse: collapse;
@@ -297,7 +296,7 @@
   }
   .badge-bad { color: var(--accent); border-color: var(--accent); background: #fef2f2; }
   .badge-good { color: #065f46; border-color: var(--battery); background: var(--battery-soft); }
-
+ 
   .findings-bottomline {
     background: var(--ink);
     color: var(--paper);
@@ -337,11 +336,26 @@
   }
   .bl-text { font-size: 14.5px; line-height: 1.6; color: #e5e5e5; }
   .bl-text strong { color: var(--paper); font-weight: 700; }
+ 
+  /* Saturation chart */
+  .satchart-wrap {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .satchart-wrap p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+  .satchart-wrap strong { color: var(--ink); font-weight: 700; }
 </style>
 </head>
 <body>
 <div class="container">
-
+ 
   <header class="hero">
     <div class="eyebrow">קבוצת רכישה • יד חנה • 2026</div>
     <h1>מחשבון ROI סולארי<br><span style="color:var(--ink-soft);font-weight:500;">עם אגירה, בלי אגירה, וההבדל</span></h1>
@@ -350,7 +364,7 @@
       בלי אגירה, כל קוט"ש שמייצר מערכת בעודף מוזרם לרשת ב-48 אג', אבל בערב אתם קונים אותו חזרה ב-64.32 אג'.
       הסוללה "תופסת" את הפער הזה. בתעריף תעו"ז ההפרש הופך לפי-3.
     </p>
-
+ 
     <div class="spread-card" id="spreadCard">
       <div>
         <div class="label">קונים מהרשת</div>
@@ -371,11 +385,11 @@
       </div>
     </div>
   </header>
-
+ 
   <div class="grid">
     <aside class="panel">
       <h2 class="panel-title">הזינו את הנתונים שלכם</h2>
-
+ 
       <div class="field">
         <div class="field-label">
           <span class="name">גודל המערכת</span>
@@ -383,7 +397,7 @@
         </div>
         <input type="range" id="size" min="5" max="25" step="0.5" value="15">
       </div>
-
+ 
       <div class="field">
         <div class="field-label">
           <span class="name">עלות המערכת (ללא סוללה)</span>
@@ -391,7 +405,7 @@
         </div>
         <input type="number" id="cost" value="54000" step="1000">
       </div>
-
+ 
       <div class="field">
         <div class="field-label">
           <span class="name">צריכה יומית ממוצעת</span>
@@ -400,7 +414,7 @@
         <input type="range" id="daily" min="5" max="80" step="1" value="25">
         <div class="pattern-help">הצריכה החודשית מחולקת ב-30. ממוצע בישראל: 15-35 kWh/יום</div>
       </div>
-
+ 
       <div class="field">
         <div class="field-label">
           <span class="name">דפוס הצריכה</span>
@@ -411,7 +425,7 @@
           <button data-val="home">בבית כל היום<br><small>פנסיונרים/WFH</small></button>
         </div>
       </div>
-
+ 
       <div class="field">
         <div class="field-label">
           <span class="name">סוג התעריף</span>
@@ -422,7 +436,7 @@
         </div>
         <div class="pattern-help">תעו"ז בקיץ (17-22) שעות פסגה ב-1.69 ₪ - אבל אז גם תפוקת הסולארי קרובה לאפס</div>
       </div>
-
+ 
       <div class="field">
         <div class="field-label">
           <span class="name">גודל סוללת אגירה</span>
@@ -434,7 +448,7 @@
           <button data-val="15">15 kWh</button>
         </div>
       </div>
-
+ 
       <div class="field" id="battCostField" style="display:none;">
         <div class="field-label">
           <span class="name">עלות הסוללה</span>
@@ -443,7 +457,7 @@
         <input type="number" id="battCost" value="15000" step="1000">
       </div>
     </aside>
-
+ 
     <main>
       <div class="results-grid">
         <div class="stat">
@@ -467,7 +481,7 @@
           <div class="stat-sub" id="selfRateSub">מהייצור משמש אתכם ישירות</div>
         </div>
       </div>
-
+ 
       <div class="chart-panel">
         <div class="chart-title">
           <h2>יום ממוצע - זרימת חשמל</h2>
@@ -478,21 +492,21 @@
         </div>
         <div id="powerChartWrap"></div>
         <div class="chart-note">הציר האנכי: הספק (kW). הציר האופקי: שעה ביום. פיק היום סביב 12:00.</div>
-
+ 
         <div id="battSection" style="display:none;">
           <div class="chart-sub">מצב טעינת הסוללה לאורך היום</div>
           <div id="battChartWrap"></div>
           <div class="chart-note">הציר האנכי: אנרגיה אגורה (kWh). מתחיל מ-0 בבוקר, מתמלא בצהריים, מתרוקן בערב.</div>
         </div>
       </div>
-
+ 
       <div class="compare">
         <h2>השוואה כספית שנתית</h2>
         <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">
           השוואה בין מערכת בלי סוללה לבין מערכת עם סוללת <span id="compareBattSize" class="compare-batt-label">10 kWh</span>.
           שנו את גודל הסוללה בפאנל הצדדי כדי לבדוק תרחישים שונים.
         </p>
-
+ 
         <div class="compare-row head">
           <div>פרמטר</div>
           <div>ללא סוללה</div>
@@ -529,13 +543,13 @@
           <div class="num" id="lifetime25Batt">— ₪</div>
         </div>
       </div>
-
+ 
       <div class="insight" id="insight">
         <div class="insight-eyebrow">השורה התחתונה</div>
         <h3 id="insightTitle">בלי סוללה - יותר משתלם</h3>
         <p id="insightBody">בתעריף אחיד, הפער קטן מדי כדי להצדיק את עלות הסוללה.</p>
       </div>
-
+ 
       <div class="assumptions">
         <h3>הנחות החישוב</h3>
         <ul>
@@ -549,7 +563,7 @@
           <li>זוהי הערכה בלבד - לקבלת תשואה אמיתית יש לבדוק חשבון חשמל אמיתי וניתוח עומסים אישי</li>
         </ul>
       </div>
-
+ 
       <section class="findings">
         <div class="findings-header">
           <div class="eyebrow">ניתוח מעמיק • 96 תרחישים נבדקו</div>
@@ -559,7 +573,7 @@
             התוצאות חדות באופן מפתיע, ויש פרמטר אחד שמכריע הכל.
           </p>
         </div>
-
+ 
         <div class="findings-headline">
           <div>
             <div class="findings-stat-number">42%</div>
@@ -567,7 +581,7 @@
           </div>
           <div class="findings-stat-divider">— אבל זה לא פזור באקראי, יש דפוס חד מאוד:</div>
         </div>
-
+ 
         <div class="findings-tariff-grid">
           <div class="findings-card findings-card--bad">
             <div class="findings-card-eyebrow">תעריף אחיד</div>
@@ -582,7 +596,7 @@
             <div class="findings-card-note">בתעו"ז הפער קופץ ל-1.21 ₪/קוט"ש בשעות הפסגה. גם אם מנצלים זאת רק 5 שעות ביום ו-122 ימי קיץ, התועלת השנתית גדולה מספיק כדי להחזיר סוללה ב-15-20 שנה.</div>
           </div>
         </div>
-
+ 
         <h3 class="findings-subhead">תרחישים בהם סוללה משתלמת (לפי תועלת מצטברת ב-25 שנה)</h3>
         <table class="findings-table">
           <thead>
@@ -639,7 +653,7 @@
             </tr>
           </tbody>
         </table>
-
+ 
         <h3 class="findings-subhead">מחיר סף לסוללת 10 kWh - כמה היא צריכה לעלות כדי להיות משתלמת?</h3>
         <table class="findings-table">
           <thead>
@@ -677,7 +691,124 @@
             </tr>
           </tbody>
         </table>
-
+ 
+        <h3 class="findings-subhead">סף הצריכה — מאיזו רמת צריכה סוללה הופכת לרווחית?</h3>
+        <p style="font-size:13px;color:var(--ink-soft);margin-bottom:16px;">
+          ביצענו סריקה עדינה יותר — 17 רמות צריכה מ-8 עד 80 kWh/יום. הסף בו סוללת 10 kWh עוברת מהפסד לרווח שונה לכל דפוס צריכה. <strong>שימו לב: סף קיים רק בתעריף תעו"ז</strong> — בתעריף אחיד הסוללה מפסידה בכל רמת צריכה, מהקטנה ביותר ועד הגבוהה ביותר.
+        </p>
+        <table class="findings-table">
+          <thead>
+            <tr>
+              <th>דפוס צריכה</th>
+              <th>סף צריכה (kWh/יום)</th>
+              <th>מתחת לסף</th>
+              <th>מעל הסף</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>עובדים (בית ריק 8-16)</td>
+              <td class="findings-table-num">18-20</td>
+              <td><span class="badge badge-bad">סוללה מפסידה</span></td>
+              <td><span class="badge badge-good">סוללה משתלמת</span></td>
+            </tr>
+            <tr>
+              <td>משפחה (שיא ערב)</td>
+              <td class="findings-table-num">22-25</td>
+              <td><span class="badge badge-bad">סוללה מפסידה</span></td>
+              <td><span class="badge badge-good">סוללה משתלמת</span></td>
+            </tr>
+            <tr>
+              <td>בבית כל היום (פנסיונרים/WFH)</td>
+              <td class="findings-table-num">30-35</td>
+              <td><span class="badge badge-bad">סוללה מפסידה</span></td>
+              <td><span class="badge badge-good">סוללה משתלמת</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:13px;color:var(--ink-soft);margin:-8px 0 32px;">
+          ההבדל בין הדפוסים: "בבית כל היום" צורך הרבה ישירות מהשמש - פחות עודפים נשארים לסוללה לאחסן.
+          המשפחה הממוצעת בישראל צורכת 20-25 kWh/יום, כך שעבור משפחה עובדת זה נמצא בדיוק סביב הסף.
+        </p>
+ 
+        <h3 class="findings-subhead">תקרת הסוללה — מתישהו גודל הסוללה הופך לבלם</h3>
+        <div class="satchart-wrap">
+          <svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Heebo',sans-serif;">
+            <!-- Background zones -->
+            <!-- Below break-even (red zone): consumption 0-19 -->
+            <rect x="60" y="40" width="135" height="180" fill="#fef2f2"/>
+            <!-- Growth zone (green): consumption 19-30 -->
+            <rect x="195" y="40" width="93" height="180" fill="#f0fdf4"/>
+            <!-- Saturation zone (yellow): consumption 30-80 -->
+            <rect x="288" y="40" width="412" height="180" fill="#fef9c3"/>
+ 
+            <!-- Y axis grid -->
+            <line x1="60" y1="40" x2="700" y2="40" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="100" x2="700" y2="100" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="160" x2="700" y2="160" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="220" x2="700" y2="220" stroke="#e5e5e5" stroke-width="1"/>
+ 
+            <!-- Break-even threshold line (920 ₪/year for 10 kWh @ 23K, 25 yr life) -->
+            <line x1="60" y1="119" x2="700" y2="119" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6,3"/>
+            <text x="695" y="115" text-anchor="end" font-size="11" fill="#dc2626" font-weight="700">סף החזר השקעה: 920 ₪/שנה (10 kWh ל-25 שנה)</text>
+ 
+            <!-- Data line: working pattern, TOU tariff, 10 kWh battery -->
+            <!-- Points: (10, 444), (15, 714), (20, 988), (25, 1264), (30, 1398), (40, 1398), (50, 1398), (60, 1398), (80, 1398) -->
+            <!-- X: 60 + (cons/80) * 640 ; Y: 220 - (value/1500) * 180 -->
+            <path d="M 140 167 L 180 134 L 220 101 L 260 68 L 300 51 L 380 51 L 460 51 L 540 51 L 700 51"
+                  fill="none" stroke="#2563eb" stroke-width="2.5"/>
+ 
+            <!-- Data point dots -->
+            <circle cx="140" cy="167" r="4" fill="#2563eb"/>
+            <circle cx="180" cy="134" r="4" fill="#2563eb"/>
+            <circle cx="220" cy="101" r="4" fill="#2563eb"/>
+            <circle cx="260" cy="68" r="4" fill="#2563eb"/>
+            <circle cx="300" cy="51" r="5" fill="#dc2626"/>
+            <circle cx="380" cy="51" r="3" fill="#2563eb"/>
+            <circle cx="460" cy="51" r="3" fill="#2563eb"/>
+ 
+            <!-- Saturation annotation -->
+            <text x="305" y="40" font-size="11" fill="#dc2626" font-weight="700">תקרה: 1,398 ₪/שנה</text>
+            <line x1="300" y1="46" x2="300" y2="51" stroke="#dc2626" stroke-width="1"/>
+ 
+            <!-- Zone labels -->
+            <text x="127" y="60" font-size="11" font-weight="700" fill="#991b1b" text-anchor="middle">מפסיד</text>
+            <text x="241" y="60" font-size="11" font-weight="700" fill="#065f46" text-anchor="middle">צומח</text>
+            <text x="494" y="60" font-size="11" font-weight="700" fill="#854d0e" text-anchor="middle">תקרה - עוד צריכה לא עוזרת</text>
+ 
+            <!-- Y axis -->
+            <line x1="60" y1="40" x2="60" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+            <text x="52" y="44" text-anchor="end" font-size="11" fill="#4a4a4a">1500</text>
+            <text x="52" y="104" text-anchor="end" font-size="11" fill="#4a4a4a">1000</text>
+            <text x="52" y="164" text-anchor="end" font-size="11" fill="#4a4a4a">500</text>
+            <text x="52" y="224" text-anchor="end" font-size="11" fill="#4a4a4a">0</text>
+            <text x="52" y="28" text-anchor="end" font-size="10" fill="#8a8a8a" font-weight="700">₪/שנה</text>
+ 
+            <!-- X axis -->
+            <line x1="60" y1="220" x2="700" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+            <line x1="140" y1="220" x2="140" y2="224" stroke="#1a1a1a"/>
+            <line x1="220" y1="220" x2="220" y2="224" stroke="#1a1a1a"/>
+            <line x1="300" y1="220" x2="300" y2="224" stroke="#1a1a1a"/>
+            <line x1="380" y1="220" x2="380" y2="224" stroke="#1a1a1a"/>
+            <line x1="460" y1="220" x2="460" y2="224" stroke="#1a1a1a"/>
+            <line x1="540" y1="220" x2="540" y2="224" stroke="#1a1a1a"/>
+            <line x1="620" y1="220" x2="620" y2="224" stroke="#1a1a1a"/>
+            <line x1="700" y1="220" x2="700" y2="224" stroke="#1a1a1a"/>
+            <text x="140" y="240" text-anchor="middle" font-size="11" fill="#4a4a4a">10</text>
+            <text x="220" y="240" text-anchor="middle" font-size="11" fill="#4a4a4a">20</text>
+            <text x="300" y="240" text-anchor="middle" font-size="11" fill="#4a4a4a">30</text>
+            <text x="380" y="240" text-anchor="middle" font-size="11" fill="#4a4a4a">40</text>
+            <text x="460" y="240" text-anchor="middle" font-size="11" fill="#4a4a4a">50</text>
+            <text x="540" y="240" text-anchor="middle" font-size="11" fill="#4a4a4a">60</text>
+            <text x="620" y="240" text-anchor="middle" font-size="11" fill="#4a4a4a">70</text>
+            <text x="700" y="240" text-anchor="middle" font-size="11" fill="#4a4a4a">80</text>
+            <text x="380" y="263" text-anchor="middle" font-size="12" fill="#4a4a4a" font-weight="700">צריכה יומית (kWh/יום)</text>
+          </svg>
+          <p>
+            הציר האנכי: <strong>תועלת שנתית שנוספת מסוללת 10 kWh</strong> (מערכת 15 kWp, דפוס עובדים, תעו"ז). הקו האדום: סף החזר השקעה ל-25 שנה במחיר נוכחי של 23,000 ₪. מתחת ל-19 kWh/יום אין החזר. מעל ~30 kWh/יום הסוללה מגיעה ל<strong>תקרה של 1,398 ₪/שנה</strong> - היא מבצעת מחזור מלא בכל יום בשעות הפסגה, ויותר צריכה לא יכולה לחלץ ממנה ערך נוסף. כדי להרוויח מצריכה גבוהה יותר צריך לעבור ל-15 kWh.
+          </p>
+        </div>
+ 
         <div class="findings-bottomline">
           <div class="findings-bottomline-eyebrow">המלצה לקבוצת יד חנה</div>
           <h3>בלי סוללה כרגע — מערכת "מוכנה לאגירה" לעתיד</h3>
@@ -706,13 +837,13 @@
     </main>
   </div>
 </div>
-
+ 
 <script>
 // === DATA ===
 const solarRaw = [0,0,0,0,0,0, 0.01,0.03,0.06,0.09,0.11,0.13, 0.14,0.13,0.11,0.09,0.06,0.03, 0.01,0,0,0,0,0];
 const solarSum = solarRaw.reduce((a,b)=>a+b, 0);
 const solarDist = solarRaw.map(v => v/solarSum);
-
+ 
 const consumptionPatterns = {
   working: [0.030,0.020,0.020,0.020,0.020,0.020, 0.040,0.060, 0.020,0.020,0.020,0.020,0.030,0.020, 0.020,0.030, 0.040,0.070,0.100,0.110, 0.100,0.080,0.060,0.030],
   family:  [0.025,0.015,0.015,0.015,0.015,0.020, 0.050,0.070, 0.030,0.025,0.025,0.025,0.040,0.035, 0.055,0.075, 0.075,0.080,0.090,0.090, 0.080,0.060,0.045,0.025],
@@ -722,7 +853,7 @@ for (const k in consumptionPatterns) {
   const s = consumptionPatterns[k].reduce((a,b)=>a+b, 0);
   consumptionPatterns[k] = consumptionPatterns[k].map(v => v/s);
 }
-
+ 
 const FLAT_RATE = 0.6432;
 const TOU_PEAK = 1.6895;
 const TOU_OFFPEAK = 0.5283;
@@ -732,9 +863,9 @@ const YIELD_PER_KWP = 1700;
 const SUMMER_DAYS = 122;
 const OTHER_DAYS = 243;
 const COMPARE_BATT_DEFAULT = 10; // for comparison table when no battery selected
-
+ 
 const battCosts = { 0: 0, 5: 15000, 10: 23000, 15: 31000 };
-
+ 
 // === STATE ===
 const state = {
   size: 15,
@@ -745,41 +876,41 @@ const state = {
   batt: 0,
   battCost: 0
 };
-
+ 
 // === SIMULATION ===
-
+ 
 function isTouPeak(hour, isSummer) {
   return isSummer && hour >= 17 && hour < 22;
 }
-
+ 
 function getBuyRate(hour, tariff, isSummer) {
   if (tariff === 'flat') return FLAT_RATE;
   return isTouPeak(hour, isSummer) ? TOU_PEAK : TOU_OFFPEAK;
 }
-
+ 
 // Simulate one day with given starting battery state. Returns end state and per-hour data.
 function simulateDay(dailyGen, dailyCons, patternArr, battKwh, tariff, isSummer, battStart) {
   const genH = solarDist.map(f => f * dailyGen);
   const consH = patternArr.map(f => f * dailyCons);
-
+ 
   let battState = battStart;
   const battMax = battKwh;
-
+ 
   const soldH = new Array(24).fill(0);
   const boughtH = new Array(24).fill(0);
   const directSelfH = new Array(24).fill(0);
   const battStateH = new Array(24).fill(0);
   const battDischargeH = new Array(24).fill(0);
-
+ 
   for (let h = 0; h < 24; h++) {
     const gen = genH[h];
     const cons = consH[h];
-
+ 
     const direct = Math.min(gen, cons);
     directSelfH[h] = direct;
     let excess = gen - direct;
     let deficit = cons - direct;
-
+ 
     if (excess > 0 && battState < battMax) {
       // need (battMax - battState)/eff units of input to fill
       const canChargeRaw = (battMax - battState) / BATT_EFFICIENCY;
@@ -793,12 +924,12 @@ function simulateDay(dailyGen, dailyCons, patternArr, battKwh, tariff, isSummer,
       battDischargeH[h] = canDischarge;
       deficit -= canDischarge;
     }
-
+ 
     soldH[h] = excess;
     boughtH[h] = deficit;
     battStateH[h] = battState;
   }
-
+ 
   let savingsFromSelf = 0;
   let salesIncome = 0;
   for (let h = 0; h < 24; h++) {
@@ -807,10 +938,10 @@ function simulateDay(dailyGen, dailyCons, patternArr, battKwh, tariff, isSummer,
     savingsFromSelf += consAvoided * buyRate;
     salesIncome += soldH[h] * SELL_RATE;
   }
-
+ 
   const totalGen = genH.reduce((a,b)=>a+b, 0);
   const totalSelf = consH.map((c,h) => c - boughtH[h]).reduce((a,b)=>a+b, 0);
-
+ 
   return {
     genH, consH, battStateH, soldH, boughtH, directSelfH, battDischargeH,
     savings: savingsFromSelf, sales: salesIncome,
@@ -820,7 +951,7 @@ function simulateDay(dailyGen, dailyCons, patternArr, battKwh, tariff, isSummer,
     battEnd: battState
   };
 }
-
+ 
 // Steady-state daily simulation: iterate until battery start state stabilizes
 function simulateSteadyState(dailyGen, dailyCons, patternName, battKwh, tariff, isSummer) {
   let battStart = battKwh > 0 ? battKwh * 0.5 : 0;
@@ -835,29 +966,29 @@ function simulateSteadyState(dailyGen, dailyCons, patternName, battKwh, tariff, 
   }
   return day;
 }
-
+ 
 // === MAIN COMPUTE ===
-
+ 
 function recompute() {
   const dailyGen = (state.size * YIELD_PER_KWP) / 365;
   const dailyCons = state.daily;
   const battKwh = state.batt;
-
+ 
   // For chart and main stats, use selected battery
   const summer = simulateSteadyState(dailyGen, dailyCons, state.pattern, battKwh, state.tariff, true);
   const other = simulateSteadyState(dailyGen, dailyCons, state.pattern, battKwh, state.tariff, false);
-
+ 
   const annualTotal = summer.total * SUMMER_DAYS + other.total * OTHER_DAYS;
   const annualSavings = summer.savings * SUMMER_DAYS + other.savings * OTHER_DAYS;
   const annualSales = summer.sales * SUMMER_DAYS + other.sales * OTHER_DAYS;
-
+ 
   // No battery baseline for comparison
   const noBattSummer = simulateSteadyState(dailyGen, dailyCons, state.pattern, 0, state.tariff, true);
   const noBattOther = simulateSteadyState(dailyGen, dailyCons, state.pattern, 0, state.tariff, false);
   const noBattTotal = noBattSummer.total * SUMMER_DAYS + noBattOther.total * OTHER_DAYS;
   const noBattSavings = noBattSummer.savings * SUMMER_DAYS + noBattOther.savings * OTHER_DAYS;
   const noBattSales = noBattSummer.sales * SUMMER_DAYS + noBattOther.sales * OTHER_DAYS;
-
+ 
   // Comparison: if user has battery selected, use that. Otherwise show default 10 kWh.
   const compareBatt = battKwh > 0 ? battKwh : COMPARE_BATT_DEFAULT;
   const compareBattCost = battKwh > 0 ? state.battCost : battCosts[COMPARE_BATT_DEFAULT];
@@ -873,7 +1004,7 @@ function recompute() {
     compSavings = compSummer.savings * SUMMER_DAYS + compOther.savings * OTHER_DAYS;
     compSales = compSummer.sales * SUMMER_DAYS + compOther.sales * OTHER_DAYS;
   }
-
+ 
   // Update stats
   $('annualGen').textContent = fmt(state.size * YIELD_PER_KWP);
   $('annualCons').textContent = fmt(state.daily * 365);
@@ -885,11 +1016,11 @@ function recompute() {
   } else {
     $('selfRateSub').textContent = `מהייצור משמש אתכם ישירות (עם סוללת 10 kWh זה היה: ${Math.round(compSummer.selfRate * 100)}%)`;
   }
-
+ 
   // Daily consumption %
   const dayPctSum = consumptionPatterns[state.pattern].slice(8, 17).reduce((a,b)=>a+b, 0);
   $('dayCons').textContent = Math.round(dayPctSum * 100) + '%';
-
+ 
   // Comparison table
   $('compareBattSize').textContent = `${compareBatt} kWh` + (battKwh === 0 ? ' (ברירת מחדל)' : '');
   $('savingNoBatt').textContent = fmt(noBattSavings) + ' ₪';
@@ -904,13 +1035,13 @@ function recompute() {
   $('paybackBatt').textContent = ((state.cost + compareBattCost) / compTotal).toFixed(1) + ' שנים';
   $('lifetime25NoBatt').textContent = fmt(noBattTotal * 25 - state.cost) + ' ₪';
   $('lifetime25Batt').textContent = fmt(compTotal * 25 - state.cost - compareBattCost) + ' ₪';
-
+ 
   updateInsight(battKwh, noBattTotal, compTotal, state.cost, state.cost + compareBattCost, compareBatt);
   updateSpreadCard();
   drawPowerChart(summer);
   drawBattChart(summer, battKwh);
 }
-
+ 
 function updateSpreadCard() {
   if (state.tariff === 'flat') {
     $('buyVal').textContent = '64.32 אג\'';
@@ -922,13 +1053,13 @@ function updateSpreadCard() {
     $('spreadVal').textContent = '1.21 ₪';
   }
 }
-
+ 
 function updateInsight(battKwh, noBattTotal, compTotal, investNoBatt, investBatt, compBattSize) {
   const insight = $('insight');
   const lifeNoBatt = noBattTotal * 25 - investNoBatt;
   const lifeBatt = compTotal * 25 - investBatt;
   const diff = lifeBatt - lifeNoBatt;
-
+ 
   if (battKwh === 0) {
     if (diff > 0) {
       $('insightTitle').textContent = `סוללת ${compBattSize} kWh תוסיף ${fmt(diff)} ₪ ל-25 שנה`;
@@ -951,38 +1082,38 @@ function updateInsight(battKwh, noBattTotal, compTotal, investNoBatt, investBatt
     }
   }
 }
-
+ 
 function fmt(n) { return Math.round(n).toLocaleString(); }
 function $(id) { return document.getElementById(id); }
-
+ 
 // === CHART (split into two) ===
-
+ 
 function drawPowerChart(day) {
   const W = 760, H = 240;
   const pad = { top: 24, right: 24, bottom: 40, left: 56 };
   const innerW = W - pad.left - pad.right;
   const innerH = H - pad.top - pad.bottom;
-
+ 
   const maxVal = Math.max(...day.genH, ...day.consH) * 1.1;
   const tickStep = niceTickStep(maxVal);
-
+ 
   const xScale = h => pad.left + (h / 24) * innerW;
   const yScale = v => pad.top + innerH - (v / maxVal) * innerH;
-
+ 
   const yTicks = [];
   for (let v = 0; v <= maxVal; v += tickStep) {
     yTicks.push({ v, y: yScale(v) });
   }
   const xTicks = [];
   for (let h = 0; h <= 24; h += 3) xTicks.push({ h, x: xScale(h) });
-
+ 
   const genPath = areaPath(day.genH, xScale, yScale, pad.top + innerH);
   const consPath = linePath(day.consH, xScale, yScale);
-
+ 
   // Peak annotation
   const peakGen = Math.max(...day.genH);
   const peakIdx = day.genH.indexOf(peakGen);
-
+ 
   const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Heebo',sans-serif;">
     ${yTicks.map(t => `<line x1="${pad.left}" y1="${t.y}" x2="${W - pad.right}" y2="${t.y}" stroke="#eee" stroke-width="1"/>`).join('')}
     ${state.tariff === 'tou' ? `
@@ -991,15 +1122,15 @@ function drawPowerChart(day) {
     ` : ''}
     <path d="${genPath}" fill="var(--sun-soft)" stroke="var(--sun)" stroke-width="1.5"/>
     <path d="${consPath}" fill="none" stroke="var(--grid)" stroke-width="2" stroke-dasharray="3,2"/>
-
+ 
     <circle cx="${xScale(peakIdx + 0.5)}" cy="${yScale(peakGen)}" r="4" fill="#dc2626"/>
     <line x1="${xScale(peakIdx + 0.5)}" y1="${yScale(peakGen)}" x2="${xScale(peakIdx + 0.5) - 70}" y2="${yScale(peakGen) - 14}" stroke="#dc2626" stroke-width="1"/>
     <text x="${xScale(peakIdx + 0.5) - 76}" y="${yScale(peakGen) - 14}" text-anchor="end" font-size="11" fill="#dc2626" font-weight="700">פיק ${peakGen.toFixed(1)} kW</text>
-
+ 
     <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + innerH}" stroke="var(--line)" stroke-width="1.5"/>
     ${yTicks.map(t => `<text x="${pad.left - 8}" y="${t.y + 4}" text-anchor="end" font-size="11" fill="var(--ink-soft)" font-variant-numeric="tabular-nums">${t.v}</text>`).join('')}
     <text x="${pad.left - 8}" y="${pad.top - 8}" text-anchor="end" font-size="10" fill="var(--ink-faint)" font-weight="700">kW</text>
-
+ 
     <line x1="${pad.left}" y1="${pad.top + innerH}" x2="${W - pad.right}" y2="${pad.top + innerH}" stroke="var(--line)" stroke-width="1.5"/>
     ${xTicks.map(t => `
       <line x1="${t.x}" y1="${pad.top + innerH}" x2="${t.x}" y2="${pad.top + innerH + 4}" stroke="var(--line)" stroke-width="1"/>
@@ -1008,47 +1139,47 @@ function drawPowerChart(day) {
   </svg>`;
   $('powerChartWrap').innerHTML = svg;
 }
-
+ 
 function drawBattChart(day, battKwh) {
   const section = $('battSection');
   if (battKwh === 0) { section.style.display = 'none'; return; }
   section.style.display = 'block';
-
+ 
   const W = 760, H = 140;
   const pad = { top: 16, right: 24, bottom: 36, left: 56 };
   const innerW = W - pad.left - pad.right;
   const innerH = H - pad.top - pad.bottom;
-
+ 
   const maxVal = battKwh * 1.05;
   const tickStep = niceTickStep(maxVal);
-
+ 
   const xScale = h => pad.left + (h / 24) * innerW;
   const yScale = v => pad.top + innerH - (v / maxVal) * innerH;
-
+ 
   const yTicks = [];
   for (let v = 0; v <= maxVal; v += tickStep) yTicks.push({ v, y: yScale(v) });
   const xTicks = [];
   for (let h = 0; h <= 24; h += 3) xTicks.push({ h, x: xScale(h) });
-
+ 
   // Battery area
   const battArea = areaPath(day.battStateH, xScale, yScale, pad.top + innerH);
   const battLine = linePath(day.battStateH, xScale, yScale);
-
+ 
   const peakBatt = Math.max(...day.battStateH);
   const peakBattH = day.battStateH.indexOf(peakBatt);
-
+ 
   const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Heebo',sans-serif;">
     ${yTicks.map(t => `<line x1="${pad.left}" y1="${t.y}" x2="${W - pad.right}" y2="${t.y}" stroke="#eee" stroke-width="1"/>`).join('')}
     <path d="${battArea}" fill="var(--battery-soft)" stroke="none" opacity="0.6"/>
     <path d="${battLine}" fill="none" stroke="var(--battery)" stroke-width="2"/>
-
+ 
     <circle cx="${xScale(peakBattH + 0.5)}" cy="${yScale(peakBatt)}" r="3" fill="var(--battery)"/>
     <text x="${xScale(peakBattH + 0.5) + 8}" y="${yScale(peakBatt) + 4}" font-size="10" fill="var(--battery)" font-weight="700">${peakBatt.toFixed(1)} kWh</text>
-
+ 
     <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + innerH}" stroke="var(--line)" stroke-width="1.5"/>
     ${yTicks.map(t => `<text x="${pad.left - 8}" y="${t.y + 4}" text-anchor="end" font-size="11" fill="var(--ink-soft)" font-variant-numeric="tabular-nums">${t.v}</text>`).join('')}
     <text x="${pad.left - 8}" y="${pad.top - 4}" text-anchor="end" font-size="10" fill="var(--ink-faint)" font-weight="700">kWh</text>
-
+ 
     <line x1="${pad.left}" y1="${pad.top + innerH}" x2="${W - pad.right}" y2="${pad.top + innerH}" stroke="var(--line)" stroke-width="1.5"/>
     ${xTicks.map(t => `
       <line x1="${t.x}" y1="${pad.top + innerH}" x2="${t.x}" y2="${pad.top + innerH + 4}" stroke="var(--line)" stroke-width="1"/>
@@ -1057,7 +1188,7 @@ function drawBattChart(day, battKwh) {
   </svg>`;
   $('battChartWrap').innerHTML = svg;
 }
-
+ 
 function niceTickStep(maxVal) {
   if (maxVal <= 2) return 0.5;
   if (maxVal <= 5) return 1;
@@ -1065,14 +1196,14 @@ function niceTickStep(maxVal) {
   if (maxVal <= 20) return 5;
   return 10;
 }
-
+ 
 function areaPath(values, xScale, yScale, bottomY) {
   let p = `M ${xScale(0)} ${bottomY}`;
   for (let h = 0; h < 24; h++) p += ` L ${xScale(h + 0.5)} ${yScale(values[h])}`;
   p += ` L ${xScale(24)} ${bottomY} Z`;
   return p;
 }
-
+ 
 function linePath(values, xScale, yScale) {
   let p = '';
   for (let h = 0; h < 24; h++) {
@@ -1080,9 +1211,9 @@ function linePath(values, xScale, yScale) {
   }
   return p;
 }
-
+ 
 // === UI WIRING ===
-
+ 
 $('size').addEventListener('input', e => {
   state.size = parseFloat(e.target.value);
   $('sizeVal').textContent = state.size;
@@ -1106,7 +1237,7 @@ $('battCost').addEventListener('input', e => {
   $('battCostVal').textContent = state.battCost.toLocaleString();
   recompute();
 });
-
+ 
 function wireSeg(groupId, stateKey, callback) {
   const group = $(groupId);
   group.querySelectorAll('button').forEach(btn => {
@@ -1120,7 +1251,7 @@ function wireSeg(groupId, stateKey, callback) {
     });
   });
 }
-
+ 
 wireSeg('patternSeg', 'pattern');
 wireSeg('tariffSeg', 'tariff');
 wireSeg('battSeg', 'batt', (val) => {
@@ -1129,7 +1260,7 @@ wireSeg('battSeg', 'batt', (val) => {
   $('battCostVal').textContent = state.battCost.toLocaleString();
   $('battCostField').style.display = val > 0 ? 'block' : 'none';
 });
-
+ 
 recompute();
 </script>
 </body>
