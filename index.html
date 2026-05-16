@@ -3,17 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מחשבון ROI סולארי - יד חנה | בחירת ספק</title>
+<title>מחשבון ROI סולארי - יד חנה</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #fafaf7;
     --ink: #1a1a1a;
     --ink-soft: #4a4a4a;
+    --ink-faint: #8a8a8a;
     --line: #2a2a2a;
     --line-soft: #d8d4cd;
-    --accent: #dc2626;
+    --sun: #f59e0b;
+    --sun-soft: #fef3c7;
+    --grid: #2563eb;
+    --grid-soft: #dbeafe;
     --battery: #10b981;
+    --battery-soft: #d1fae5;
+    --accent: #dc2626;
     --paper: #fff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,27 +31,49 @@
   .eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 8px; font-weight: 700; }
   h1 { font-family: 'Frank Ruhl Libre', serif; font-weight: 900; font-size: clamp(28px, 5vw, 44px); letter-spacing: -0.01em; line-height: 1.1; margin-bottom: 12px; }
   .lede { font-size: 16px; color: var(--ink-soft); max-width: 720px; }
+  .lede strong { color: var(--ink); font-weight: 700; }
+
+  .spread-card {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    padding: 20px;
+    margin: 24px 0 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+  .spread-card .label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; margin-bottom: 6px; }
+  .spread-card .value { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 24px; }
+  .spread-card .value.big { color: var(--accent); }
+  .spread-card .arrow { color: var(--ink-soft); font-size: 18px; }
+  @media (max-width: 640px) {
+    .spread-card { grid-template-columns: 1fr; text-align: center; }
+    .spread-card .arrow { transform: rotate(90deg); }
+  }
 
   .grid { display: grid; grid-template-columns: 380px 1fr; gap: 28px; margin-top: 32px; }
   @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 
   .panel { background: var(--paper); border: 1.5px solid var(--line); padding: 24px; }
   .panel-title { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 20px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line-soft); }
-
   .field { margin-bottom: 20px; }
   .field-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
   .field-label .name { font-weight: 500; font-size: 14px; }
   .field-label .value { font-weight: 700; font-size: 16px; color: var(--ink); font-variant-numeric: tabular-nums; }
-
-  .seg { display: grid; gap: 0; border: 1px solid var(--line); overflow: hidden; }
-  .seg.two { grid-template-columns: 1fr 1fr; }
+  input[type="range"] { width: 100%; -webkit-appearance: none; height: 4px; background: var(--line-soft); border-radius: 0; outline: none; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--ink); border-radius: 50%; cursor: pointer; }
+  input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: var(--ink); border-radius: 50%; cursor: pointer; border: none; }
+  input[type="number"] { width: 100%; padding: 8px 10px; border: 1px solid var(--line-soft); font-family: inherit; font-size: 14px; }
+  .seg { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 1px solid var(--line); overflow: hidden; }
+  .seg.three { grid-template-columns: repeat(3, 1fr); }
+  .seg.four { grid-template-columns: repeat(4, 1fr); }
   .seg button {
     background: var(--paper);
     border: none;
-    padding: 12px 10px;
+    padding: 10px 6px;
     font-family: inherit;
     font-size: 13px;
-    font-weight: 500;
     cursor: pointer;
     transition: all 0.15s;
     border-right: 1px solid var(--line);
@@ -55,82 +83,274 @@
   .seg button.active { background: var(--ink); color: var(--paper); font-weight: 700; }
   .seg button:hover:not(.active) { background: var(--line-soft); }
 
-  .helper-text { font-size: 12px; color: var(--ink-soft); margin-top: 6px; font-style: italic; }
-
-  .provider-card {
-    background: var(--paper);
-    border: 2px solid var(--line-soft);
-    padding: 16px;
-    margin-bottom: 16px;
-    cursor: pointer;
-    transition: all 0.2s;
+  .pattern-help {
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    font-style: italic;
   }
-  .provider-card:hover { border-color: var(--ink); background: #fafaf9; }
-  .provider-card.selected { border-color: var(--ink); background: #f0fdf4; }
-  .provider-card-name { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
-  .provider-card-contact { font-size: 12px; color: var(--ink-soft); }
-
-  .warning-box {
-    background: #fef2f2;
-    border-left: 4px solid var(--accent);
-    padding: 14px 16px;
-    margin: 20px 0;
-    font-size: 13px;
-    color: var(--ink);
-  }
-  .warning-box strong { color: var(--accent); font-weight: 700; }
-
-  .info-box {
-    background: #f0fdf4;
-    border-left: 4px solid var(--battery);
-    padding: 14px 16px;
-    margin: 20px 0;
-    font-size: 13px;
-    color: var(--ink);
-  }
-  .info-box strong { color: #065f46; font-weight: 700; }
-
-  input[type="range"] { width: 100%; -webkit-appearance: none; height: 4px; background: var(--line-soft); outline: none; }
-  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: var(--ink); border-radius: 50%; cursor: pointer; }
-  input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; background: var(--ink); border-radius: 50%; cursor: pointer; border: none; }
-  input[type="number"], select { width: 100%; padding: 8px 10px; border: 1px solid var(--line-soft); font-family: inherit; font-size: 14px; background: var(--paper); color: var(--ink); }
 
   .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
   @media (max-width: 540px) { .results-grid { grid-template-columns: 1fr; } }
-
   .stat {
     background: var(--paper);
     border: 1.5px solid var(--line);
     padding: 16px 18px;
+    position: relative;
   }
-  .stat.highlight { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .stat.feature { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .stat.feature .stat-value { color: var(--paper); }
   .stat-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; margin-bottom: 6px; }
-  .stat.highlight .stat-label { color: #a3a3a3; }
+  .stat.feature .stat-label { color: #a3a3a3; }
   .stat-value { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 28px; line-height: 1.1; font-variant-numeric: tabular-nums; }
   .stat-sub { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
-  .stat.highlight .stat-sub { color: #d1d5db; }
+  .stat.feature .stat-sub { color: #d1d5db; }
 
-  .notes-section {
-    background: var(--paper);
-    border: 1.5px solid var(--line);
+  .chart-panel { background: var(--paper); border: 1.5px solid var(--line); padding: 24px; }
+  .chart-title { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; gap: 16px; flex-wrap: wrap; }
+  .chart-title h2 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 18px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--ink-soft); }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 14px; height: 14px; border: 1px solid var(--line); }
+  .chart-sub {
+    font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 15px;
+    margin: 20px 0 10px; padding-top: 16px; border-top: 1px dashed var(--line-soft);
+  }
+  .chart-note { font-size: 12px; color: var(--ink-soft); margin-top: 6px; font-style: italic; }
+
+  .compare { background: var(--paper); border: 1.5px solid var(--line); padding: 24px; margin-top: 24px; }
+  .compare h2 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 20px; margin-bottom: 20px; }
+  .compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line-soft); align-items: baseline; }
+  .compare-row.head { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-soft); font-weight: 700; padding-bottom: 10px; }
+  .compare-row.head > div:first-child { color: var(--ink); }
+  .compare-row > div:first-child { font-weight: 500; font-size: 14px; }
+  .compare-row .num { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 18px; font-variant-numeric: tabular-nums; }
+  .compare-row.highlight { background: var(--sun-soft); margin: 0 -24px; padding: 14px 24px; border-bottom: 1px solid var(--line-soft); }
+  .compare-batt-label { color: var(--battery); font-weight: 700; font-size: 11px; }
+
+  .assumptions { margin-top: 32px; padding: 20px 24px; border: 1px dashed var(--line-soft); background: rgba(0,0,0,0.02); }
+  .assumptions h3 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 16px; margin-bottom: 12px; }
+  .assumptions ul { list-style: none; padding: 0; }
+  .assumptions li { font-size: 13px; color: var(--ink-soft); padding: 4px 0; padding-right: 18px; position: relative; }
+  .assumptions li::before { content: "—"; position: absolute; right: 0; color: var(--ink-soft); }
+
+  .insight {
+    background: var(--ink);
+    color: var(--paper);
     padding: 24px;
     margin-top: 24px;
+    border: 1.5px solid var(--ink);
   }
-  .notes-section h3 {
+  .insight-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #facc15; font-weight: 700; margin-bottom: 10px; }
+  .insight h3 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 22px; margin-bottom: 10px; }
+  .insight p { font-size: 15px; line-height: 1.6; color: #e5e5e5; }
+  .insight strong { color: var(--paper); }
+
+  /* ===== Findings Section ===== */
+  .findings {
+    margin-top: 48px;
+    padding-top: 36px;
+    border-top: 2px solid var(--line);
+  }
+  .findings-header { margin-bottom: 32px; }
+  .findings-header h2 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 900;
+    font-size: clamp(26px, 4vw, 36px);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin: 8px 0 14px;
+  }
+  .findings-lede {
+    font-size: 15px;
+    color: var(--ink-soft);
+    max-width: 720px;
+    line-height: 1.6;
+  }
+  .findings-lede strong { color: var(--ink); font-weight: 700; }
+
+  .findings-headline {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin: 32px 0 24px;
+    padding: 24px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .findings-stat-number {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 900;
+    font-size: 80px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .findings-stat-label {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    max-width: 220px;
+  }
+  .findings-stat-divider {
+    flex: 1;
     font-family: 'Frank Ruhl Libre', serif;
     font-weight: 700;
     font-size: 18px;
+    color: var(--ink-soft);
+    font-style: italic;
+    padding-right: 24px;
+  }
+  @media (max-width: 640px) {
+    .findings-headline { flex-direction: column; gap: 8px; }
+    .findings-stat-number { font-size: 60px; }
+  }
+
+  .findings-tariff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 640px) { .findings-tariff-grid { grid-template-columns: 1fr; } }
+  .findings-card {
+    padding: 24px;
+    border: 1.5px solid var(--line);
+    background: var(--paper);
+  }
+  .findings-card--bad { border-color: var(--accent); background: #fef2f2; }
+  .findings-card--good { border-color: var(--battery); background: var(--battery-soft); }
+  .findings-card-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .findings-card--bad .findings-card-eyebrow { color: var(--accent); }
+  .findings-card--good .findings-card-eyebrow { color: #065f46; }
+  .findings-card-number {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .findings-card--bad .findings-card-number { color: var(--accent); }
+  .findings-card--good .findings-card-number { color: #065f46; }
+  .findings-card-label {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+  .findings-card-note { font-size: 13px; color: var(--ink); line-height: 1.5; }
+
+  .findings-subhead {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 40px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .findings-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
     margin-bottom: 16px;
   }
-  .note-item {
-    margin-bottom: 12px;
-    font-size: 13px;
-    line-height: 1.5;
+  .findings-table th {
+    text-align: right;
+    padding: 12px 14px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .findings-table td {
+    padding: 14px;
+    border-top: 1px solid var(--line-soft);
+    font-size: 14px;
     color: var(--ink);
   }
-  .note-item strong { color: var(--ink); font-weight: 700; }
+  .findings-table-num {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 700;
+    font-size: 16px;
+    font-variant-numeric: tabular-nums;
+  }
+  .findings-table-bad td { color: var(--ink-faint); background: #fafafa; }
+  .findings-table-bad .findings-table-num { color: var(--accent); }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border: 1px solid;
+  }
+  .badge-bad { color: var(--accent); border-color: var(--accent); background: #fef2f2; }
+  .badge-good { color: #065f46; border-color: var(--battery); background: var(--battery-soft); }
 
-  .hidden { display: none; }
+  .findings-bottomline {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px;
+    margin-top: 32px;
+    border: 1.5px solid var(--ink);
+  }
+  .findings-bottomline-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #facc15;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .findings-bottomline h3 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .findings-bottomline-steps { display: flex; flex-direction: column; gap: 18px; }
+  .bl-step {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .bl-num {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 1;
+    color: #facc15;
+  }
+  .bl-text { font-size: 14.5px; line-height: 1.6; color: #e5e5e5; }
+  .bl-text strong { color: var(--paper); font-weight: 700; }
+
+  /* Saturation chart */
+  .satchart-wrap {
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .satchart-wrap p {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+  .satchart-wrap strong { color: var(--ink); font-weight: 700; }
 </style>
 </head>
 <body>
@@ -138,145 +358,252 @@
 
   <header class="hero">
     <div class="eyebrow">קבוצת רכישה • יד חנה • 2026</div>
-    <h1>מחשבון ROI סולארי<br><span style="color:var(--ink-soft);font-weight:500;">עם בחירת ספק</span></h1>
-    <p class="lede">
-      השווו בין סולראדג' לבין וולטה סולאר — מחירים, אחריות, והתחייבויות שונות. בואו נראה מי משתלם יותר <strong>לדפוס הצריכה והתעריף שלכם</strong>.
-    </p>
+    <h1>מחשבון ROI סולארי</h1>
+
+    <div class="spread-card" id="spreadCard">
+      <div>
+        <div class="label">קונים מהרשת</div>
+        <div class="value" id="buyVal">64.32 אג'</div>
+        <div class="stat-sub" id="buySub">תעריף אחיד 2026</div>
+      </div>
+      <div class="arrow">←</div>
+      <div>
+        <div class="label">הפער</div>
+        <div class="value big" id="spreadVal">16.32 אג'</div>
+        <div class="stat-sub">חיסכון לכל קוט"ש שלא יוזרם</div>
+      </div>
+      <div class="arrow">←</div>
+      <div>
+        <div class="label">מוכרים לרשת</div>
+        <div class="value">48 אג'</div>
+        <div class="stat-sub">תעריף הזרמה (עד 15 kWp)</div>
+      </div>
+    </div>
   </header>
 
   <div class="grid">
     <aside class="panel">
-      <h2 class="panel-title">בואו נתחיל</h2>
+      <h2 class="panel-title">בחרו ספק וזינו נתונים</h2>
 
       <div class="field">
-        <div class="field-label"><span class="name">בחרו ספק</span></div>
-        <div id="providerSelect">
-          <div class="provider-card" onclick="selectProvider('solaredge')">
-            <div class="provider-card-name">סולראדג' טכנולוגיות</div>
-            <div class="provider-card-contact">אורן יחזקאל • 050-7434920</div>
-          </div>
-          <div class="provider-card" onclick="selectProvider('volta')">
-            <div class="provider-card-name">וולטה סולאר</div>
-            <div class="provider-card-contact">עידן מלצר • 054-6313874</div>
-          </div>
+        <div class="field-label">
+          <span class="name">בחרו ספק</span>
         </div>
+        <div class="seg two" id="providerSeg">
+          <button data-val="solaredge" class="active">סולראדג'</button>
+          <button data-val="volta">וולטה</button>
+        </div>
+        <div class="pattern-help" id="providerNote">סולראדג': 3,600-3,800 ₪/kWp | וולטה: 8.4-23.4 kW קבוע</div>
       </div>
 
       <div class="field">
-        <div class="field-label"><span class="name">סוג התעריף</span></div>
-        <div class="seg two" id="tariffSeg">
-          <button data-val="flat" class="active">אחיד</button>
-          <button data-val="tou">תעו"ז</button>
+        <div class="field-label">
+          <span class="name">גודל המערכת</span>
+          <span class="value"><span id="sizeVal">15</span> kWp</span>
         </div>
+        <select id="size" style="width:100%;padding:8px 10px;border:1px solid var(--line-soft);font-family:inherit;font-size:14px;background:var(--paper);cursor:pointer;">
+          <option value="8.4">8.4 kWp</option>
+          <option value="9">9 kWp</option>
+          <option value="9.6">9.6 kWp</option>
+          <option value="10.2">10.2 kWp</option>
+          <option value="10.8">10.8 kWp</option>
+          <option value="11.4">11.4 kWp</option>
+          <option value="12">12 kWp</option>
+          <option value="12.6">12.6 kWp</option>
+          <option value="13.2">13.2 kWp</option>
+          <option value="13.8">13.8 kWp</option>
+          <option value="14.4">14.4 kWp</option>
+          <option value="15" selected>15 kWp</option>
+          <option value="15.6">15.6 kWp</option>
+          <option value="16.2">16.2 kWp</option>
+          <option value="16.8">16.8 kWp</option>
+          <option value="17.4">17.4 kWp</option>
+          <option value="18">18 kWp</option>
+          <option value="18.6">18.6 kWp</option>
+          <option value="19.2">19.2 kWp</option>
+          <option value="19.8">19.8 kWp</option>
+          <option value="20.4">20.4 kWp</option>
+          <option value="21">21 kWp</option>
+          <option value="21.6">21.6 kWp</option>
+          <option value="22.2">22.2 kWp</option>
+          <option value="22.8">22.8 kWp</option>
+          <option value="23.4">23.4 kWp</option>
+        </select>
       </div>
 
       <div class="field">
         <div class="field-label">
           <span class="name">חשבון חשמל חודשי ממוצע</span>
-          <span class="value"><span id="monthlyVal">600</span> ₪</span>
+          <span class="value"><span id="billVal">500</span> ₪</span>
         </div>
-        <input type="number" id="monthly" value="600" min="100" max="5000" step="50">
-        <div class="helper-text">צריכה יומית תחושב אוטומטית (חלקו ב-30)</div>
+        <input type="range" id="bill" min="100" max="2000" step="50" value="500">
+        <div class="pattern-help">מחולק ב-30 לחישוב הצריכה היומית: <span id="dailyFromBill">26</span> kWh/יום</div>
       </div>
 
-      <div class="field hidden" id="sizeField">
+      <div class="field">
         <div class="field-label">
-          <span class="name">גודל המערכת</span>
-          <span class="value"><span id="sizeVal">15</span> kWp</span>
+          <span class="name">מספר סוללות (4.7 kWh כל אחת)</span>
+          <span class="value"><span id="battCountVal">0</span></span>
         </div>
-        <input type="range" id="size" min="5" max="25" step="0.5" value="15">
+        <input type="number" id="battCount" value="0" min="0" max="10" step="1">
+        <div class="pattern-help">סולראדג': ראשונה 12,600 ₪ (ממיר+BUI), כל נוספת 8,000 ₪</div>
       </div>
 
-      <div class="field hidden" id="voltaSizeField">
-        <div class="field-label"><span class="name">בחרו גודל מערכת</span></div>
-        <select id="voltaSize">
-          <option value="">-- בחרו --</option>
-          <option value="8.4">8.4 kW - 46,595 ₪</option>
-          <option value="9">9 kW - 47,708 ₪</option>
-          <option value="9.6">9.6 kW - 48,822 ₪</option>
-          <option value="10.2">10.2 kW - 49,935 ₪</option>
-          <option value="10.8">10.8 kW - 51,049 ₪</option>
-          <option value="11.4">11.4 kW - 52,162 ₪</option>
-          <option value="12">12 kW - 53,276 ₪</option>
-          <option value="12.6">12.6 kW - 54,389 ₪</option>
-          <option value="13.2">13.2 kW - 55,503 ₪</option>
-          <option value="13.8">13.8 kW - 56,616 ₪</option>
-          <option value="14.4">14.4 kW - 57,730 ₪</option>
-          <option value="15">15 kW - 58,843 ₪</option>
-          <option value="15.6">15.6 kW - 59,957 ₪</option>
-          <option value="16.2">16.2 kW - 61,070 ₪</option>
-          <option value="16.8">16.8 kW - 62,397 ₪</option>
-          <option value="17.4">17.4 kW - 63,297 ₪</option>
-          <option value="18">18 kW - 64,411 ₪</option>
-          <option value="18.6">18.6 kW - 65,524 ₪</option>
-          <option value="19.2">19.2 kW - 66,638 ₪</option>
-          <option value="19.8">19.8 kW - 67,751 ₪</option>
-          <option value="20.4">20.4 kW - 68,865 ₪</option>
-          <option value="21">21 kW - 69,978 ₪</option>
-          <option value="21.6">21.6 kW - 71,092 ₪</option>
-          <option value="22.2">22.2 kW - 72,205 ₪</option>
-          <option value="22.8">22.8 kW - 73,319 ₪</option>
-          <option value="23.4">23.4 kW - 74,432 ₪</option>
-        </select>
+      <div class="field" style="background:#f0fdf4;padding:12px;margin-bottom:20px;border-left:4px solid #10b981;">
+        <div style="font-weight:700;color:#065f46;margin-bottom:6px;">עלות כוללת (מערכת + סוללות)</div>
+        <div style="font-size:18px;font-weight:700;color:#065f46;"><span id="totalCostVal">54,000</span> ₪</div>
       </div>
 
-      <div id="solaredgeWarnings" class="hidden">
-        <div class="warning-box"><strong>⚠️ דבר לשים לב:</strong> אחריות התקנה 3 שנים בלבד. שירות טכנאי: 12 שנה.</div>
-        <div class="info-box"><strong>✓ יתרון:</strong> התחייבות על סוללות חדשות מאוגוסט.</div>
+
+      <div class="field">
+        <div class="field-label">
+          <span class="name">דפוס הצריכה</span>
+        </div>
+        <div class="seg three" id="patternSeg">
+          <button data-val="working" class="active">עובדים<br><small>בית ריק 8-16</small></button>
+          <button data-val="family">משפחה<br><small>שיא ערב</small></button>
+          <button data-val="home">בבית כל היום<br><small>פנסיונרים/WFH</small></button>
+        </div>
       </div>
 
-      <div id="voltaWarnings" class="hidden">
-        <div class="warning-box"><strong>⚠️ דבר לשים לב:</strong> לא מציעה קטנות מ-8.4 kW.</div>
-        <div class="info-box"><strong>✓ יתרון:</strong> אחריות התקנה 10 שנים!</div>
+      <div class="field">
+        <div class="field-label">
+          <span class="name">סוג התעריף</span>
+        </div>
+        <div class="seg" id="tariffSeg">
+          <button data-val="flat" class="active">אחיד<br><small>64.32 אג' כל היום</small></button>
+          <button data-val="tou">תעו"ז<br><small>פסגה ערב יקר</small></button>
+        </div>
+        <div class="pattern-help">תעו"ז בקיץ (17-22) שעות פסגה ב-1.69 ₪ - אבל אז גם תפוקת הסולארי קרובה לאפס</div>
       </div>
+
     </aside>
 
     <main>
-      <div id="results" class="hidden">
-        <div class="results-grid">
-          <div class="stat">
-            <div class="stat-label">ייצור שנתי צפוי</div>
-            <div class="stat-value"><span id="annualGen">25,500</span> kWh</div>
-            <div class="stat-sub">1,700 kWh/kWp/שנה</div>
-          </div>
-          <div class="stat">
-            <div class="stat-label">צריכה שנתית</div>
-            <div class="stat-value"><span id="annualCons">9,125</span> kWh</div>
-            <div class="stat-sub" id="dailyConsDisplay">צריכה יומית: 25 kWh</div>
-          </div>
-          <div class="stat">
-            <div class="stat-label">עלות המערכת</div>
-            <div class="stat-value"><span id="systemCost">54,000</span> ₪</div>
-            <div class="stat-sub">כלול: ממיר, פאנלים, BUI</div>
-          </div>
-          <div class="stat highlight">
-            <div class="stat-label">תועלת שנתית משוערת</div>
-            <div class="stat-value"><span id="annualBenefit">12,800</span> ₪</div>
-            <div class="stat-sub">חיסכון + הכנסה</div>
+      <div class="results-grid">
+        <div class="stat">
+          <div class="stat-label">ייצור שנתי צפוי</div>
+          <div class="stat-value"><span id="annualGen">25,500</span> kWh</div>
+          <div class="stat-sub">1,700 kWh לכל kWp בשנה</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">צריכה שנתית</div>
+          <div class="stat-value"><span id="annualCons">9,125</span> kWh</div>
+          <div class="stat-sub" id="annualConsSub">מתוך זה בשעות שמש: <span id="dayCons">25%</span></div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">פיק הספק מהמערכת</div>
+          <div class="stat-value"><span id="peakPower">9.78</span> kW</div>
+          <div class="stat-sub">בשעות הצהריים, סביב 12:00</div>
+        </div>
+        <div class="stat feature">
+          <div class="stat-label">צריכה עצמית</div>
+          <div class="stat-value"><span id="selfRate">14%</span></div>
+          <div class="stat-sub" id="selfRateSub">מהייצור משמש אתכם ישירות</div>
+        </div>
+      </div>
+
+      <div class="chart-panel">
+        <div class="chart-title">
+          <h2>יום ממוצע - זרימת חשמל</h2>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-swatch" style="background:var(--sun-soft);border-color:var(--sun);"></div>ייצור סולארי</div>
+            <div class="legend-item"><div class="legend-swatch" style="background:var(--grid-soft);border-color:var(--grid);"></div>צריכה ביתית</div>
           </div>
         </div>
+        <div id="powerChartWrap"></div>
+        <div class="chart-note">הציר האנכי: הספק (kW). הציר האופקי: שעה ביום. פיק היום סביב 12:00.</div>
 
-        <div class="notes-section" id="providerNotes"></div>
+        <div id="battSection" style="display:none;">
+          <div class="chart-sub">מצב טעינת הסוללה לאורך היום</div>
+          <div id="battChartWrap"></div>
+          <div class="chart-note">הציר האנכי: אנרגיה אגורה (kWh). מתחיל מ-0 בבוקר, מתמלא בצהריים, מתרוקן בערב.</div>
+        </div>
       </div>
 
-      <div id="placeholder" style="text-align:center;color:var(--ink-soft);padding:60px 20px;">
-        <p style="font-size:16px;">בחרו ספק כדי להתחיל את החישוב</p>
+      <div class="compare">
+        <h2>השוואה כספית שנתית</h2>
+        <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;" id="compareDesc">
+          השוואה בין מערכת בלי סוללה לבין מערכת עם <span id="compareBattSize" class="compare-batt-label">2 סוללות (9.4 kWh)</span>.
+        </p>
+
+        <div class="compare-row head">
+          <div>פרמטר</div>
+          <div>ללא סוללה</div>
+          <div>עם סוללה</div>
+        </div>
+        <div class="compare-row">
+          <div>חיסכון מצריכה עצמית</div>
+          <div class="num" id="savingNoBatt">— ₪</div>
+          <div class="num" id="savingBatt">— ₪</div>
+        </div>
+        <div class="compare-row">
+          <div>הכנסה ממכירת עודפים</div>
+          <div class="num" id="incomeNoBatt">— ₪</div>
+          <div class="num" id="incomeBatt">— ₪</div>
+        </div>
+        <div class="compare-row highlight">
+          <div><strong>סה"כ תועלת שנתית</strong></div>
+          <div class="num" id="totalNoBatt">— ₪</div>
+          <div class="num" id="totalBatt">— ₪</div>
+        </div>
+        <div class="compare-row">
+          <div>השקעה ראשונית</div>
+          <div class="num" id="investNoBatt">— ₪</div>
+          <div class="num" id="investBatt">— ₪</div>
+        </div>
+        <div class="compare-row">
+          <div>החזר השקעה</div>
+          <div class="num" id="paybackNoBatt">— שנים</div>
+          <div class="num" id="paybackBatt">— שנים</div>
+        </div>
+        <div class="compare-row">
+          <div>רווח מצטבר ל-25 שנה</div>
+          <div class="num" id="lifetime25NoBatt">— ₪</div>
+          <div class="num" id="lifetime25Batt">— ₪</div>
+        </div>
       </div>
+
+      <div class="insight" id="insight">
+        <div class="insight-eyebrow">השורה התחתונה</div>
+        <h3 id="insightTitle">בלי סוללה - יותר משתלם</h3>
+        <p id="insightBody">בתעריף אחיד, הפער קטן מדי כדי להצדיק את עלות הסוללה.</p>
+      </div>
+
     </main>
   </div>
-
 </div>
 
 <script>
-const YIELD_PER_KWP = 1700;
+// === DATA ===
+const solarRaw = [0,0,0,0,0,0, 0.01,0.03,0.06,0.09,0.11,0.13, 0.14,0.13,0.11,0.09,0.06,0.03, 0.01,0,0,0,0,0];
+const solarSum = solarRaw.reduce((a,b)=>a+b, 0);
+const solarDist = solarRaw.map(v => v/solarSum);
+
+const consumptionPatterns = {
+  working: [0.030,0.020,0.020,0.020,0.020,0.020, 0.040,0.060, 0.020,0.020,0.020,0.020,0.030,0.020, 0.020,0.030, 0.040,0.070,0.100,0.110, 0.100,0.080,0.060,0.030],
+  family:  [0.025,0.015,0.015,0.015,0.015,0.020, 0.050,0.070, 0.030,0.025,0.025,0.025,0.040,0.035, 0.055,0.075, 0.075,0.080,0.090,0.090, 0.080,0.060,0.045,0.025],
+  home:    [0.025,0.020,0.020,0.020,0.020,0.020, 0.035,0.045, 0.045,0.050,0.055,0.055,0.060,0.055, 0.055,0.055, 0.055,0.060,0.070,0.070, 0.060,0.045,0.035,0.020],
+};
+for (const k in consumptionPatterns) {
+  const s = consumptionPatterns[k].reduce((a,b)=>a+b, 0);
+  consumptionPatterns[k] = consumptionPatterns[k].map(v => v/s);
+}
+
 const FLAT_RATE = 0.6432;
 const TOU_PEAK = 1.6895;
 const TOU_OFFPEAK = 0.5283;
 const SELL_RATE = 0.48;
+const BATT_EFFICIENCY = 0.90;
+const YIELD_PER_KWP = 1700;
 const SUMMER_DAYS = 122;
 const OTHER_DAYS = 243;
+const COMPARE_BATT_DEFAULT = 10; // for comparison table when no battery selected
 
-const VOLTA_PRICES = {
+const battCosts = { 0: 0, 5: 15000, 10: 23000, 15: 31000 };
+
+// Volta pricing by size (kW)
+const voltaPrices = {
   8.4: 46595, 9: 47708, 9.6: 48822, 10.2: 49935, 10.8: 51049,
   11.4: 52162, 12: 53276, 12.6: 54389, 13.2: 55503, 13.8: 56616,
   14.4: 57730, 15: 58843, 15.6: 59957, 16.2: 61070, 16.8: 62397,
@@ -284,135 +611,492 @@ const VOLTA_PRICES = {
   20.4: 68865, 21: 69978, 21.6: 71092, 22.2: 72205, 22.8: 73319, 23.4: 74432
 };
 
-const solar_raw = [0,0,0,0,0,0, 0.01,0.03,0.06,0.09,0.11,0.13, 0.14,0.13,0.11,0.09,0.06,0.03, 0.01,0,0,0,0,0];
-const solar_dist = solar_raw.map(v => v / solar_raw.reduce((a,b)=>a+b));
-
-const patterns = {
-  working: [0.030,0.020,0.020,0.020,0.020,0.020, 0.040,0.060, 0.020,0.020,0.020,0.020,0.030,0.020, 0.020,0.030, 0.040,0.070,0.100,0.110, 0.100,0.080,0.060,0.030],
-};
-for (const k in patterns) {
-  const s = patterns[k].reduce((a,b)=>a+b);
-  patterns[k] = patterns[k].map(v => v/s);
-}
-
-const state = { provider: null, tariff: 'flat', monthly: 600, size: 15, voltaSize: null };
-
-function selectProvider(prov) {
-  state.provider = prov;
-  document.querySelectorAll('.provider-card').forEach(c => c.classList.remove('selected'));
-  event.target.closest('.provider-card').classList.add('selected');
-  document.getElementById('sizeField').classList.toggle('hidden', prov !== 'solaredge');
-  document.getElementById('voltaSizeField').classList.toggle('hidden', prov !== 'volta');
-  document.getElementById('solaredgeWarnings').classList.toggle('hidden', prov !== 'solaredge');
-  document.getElementById('voltaWarnings').classList.toggle('hidden', prov !== 'volta');
-  recompute();
-}
-
-function getSolarEdgePrice(sz) {
-  if (sz <= 15) return sz * 3800;
-  if (sz <= 21) return sz * 3600;
-  return sz * 3500;
-}
-
-function getSystemSize() {
-  if (state.provider === 'solaredge') return state.size;
-  if (state.provider === 'volta') return parseFloat(state.voltaSize) || null;
-  return null;
-}
-
-function getSystemCost() {
-  const sz = getSystemSize();
-  if (!sz) return null;
-  if (state.provider === 'solaredge') return getSolarEdgePrice(sz);
-  if (state.provider === 'volta') return VOLTA_PRICES[sz.toString()] || null;
-  return null;
-}
-
-function simulateDay(dailyGen, dailyCons, pattern, tariff, isSummer) {
-  const genH = solar_dist.map(f => f * dailyGen);
-  const consH = pattern.map(f => f * dailyCons);
-  let savings = 0, sales = 0;
-  for (let h = 0; h < 24; h++) {
-    const gen = genH[h], cons = consH[h];
-    const direct = Math.min(gen, cons);
-    const excess = gen - direct;
-    const deficit = cons - direct;
-    let rate = (tariff === 'flat') ? FLAT_RATE : (isSummer && h >= 17 && h < 22) ? TOU_PEAK : TOU_OFFPEAK;
-    savings += (cons - deficit) * rate;
-    sales += excess * SELL_RATE;
+function calculateCostByProvider(size, provider) {
+  if (provider === 'volta') {
+    // Find closest Volta size
+    const keys = Object.keys(voltaPrices).map(Number).sort((a,b)=>a-b);
+    const closest = keys.reduce((prev, curr) => Math.abs(curr - size) < Math.abs(prev - size) ? curr : prev);
+    return voltaPrices[closest];
+  } else {
+    // SolarEdge pricing tiers
+    if (size <= 15) return size * 3800;
+    if (size <= 21) return size * 3600;
+    return size * 3500;
   }
-  return savings + sales;
 }
 
-function annual(sizeKwp, dailyCons, tariff) {
-  if (!sizeKwp) return 0;
-  const dailyGen = (sizeKwp * YIELD_PER_KWP) / 365;
-  const pattern = patterns.working;
-  const summer = simulateDay(dailyGen, dailyCons, pattern, tariff, true);
-  const other = simulateDay(dailyGen, dailyCons, pattern, tariff, false);
-  return summer * SUMMER_DAYS + other * OTHER_DAYS;
+// Calculate battery cost based on provider and number of batteries
+function calculateBatteryCost(battCount, provider) {
+  if (battCount === 0) return 0;
+  
+  if (provider === 'solaredge') {
+    // First battery: 12,600 ₪ (includes inverter + BUI)
+    // Each additional: 8,000 ₪
+    if (battCount === 1) return 12600;
+    return 12600 + (battCount - 1) * 8000;
+  } else if (provider === 'volta') {
+    // Volta pricing varies by system size
+    // Up to 27 panels: 16,800 ₪
+    // Over 27 panels: 19,800 ₪
+    // For simplicity, use 16,800 for now
+    if (battCount === 0) return 0;
+    return battCount > 0 ? 16800 : 0;
+  }
+  return 0;
 }
+
+function updateTotalCost() {
+  const baseCost = state.cost; // Cost of panels + inverter (without batteries)
+  const battCost = calculateBatteryCost(state.battCount, state.provider);
+  const totalCost = baseCost + battCost;
+  state.totalCost = totalCost;
+  state.battCost = battCost;
+  
+  $('totalCostVal').textContent = totalCost.toLocaleString();
+}
+
+// === STATE ===
+const state = {
+  provider: 'solaredge',
+  size: 15,
+  cost: 54000,
+  totalCost: 54000,
+  monthlyBill: 500,
+  daily: Math.round(500 / 30 / 0.6432),  // kWh/day from monthly bill
+  pattern: 'working',
+  tariff: 'flat',
+  batt: 0,
+  battCost: 0,
+  battCount: 0,
+  maint: 0.8,
+  degrade: 0.5
+};
+
+// === SIMULATION ===
+
+function isTouPeak(hour, isSummer) {
+  return isSummer && hour >= 17 && hour < 22;
+}
+
+function getBuyRate(hour, tariff, isSummer) {
+  if (tariff === 'flat') return FLAT_RATE;
+  return isTouPeak(hour, isSummer) ? TOU_PEAK : TOU_OFFPEAK;
+}
+
+// Simulate one day with given starting battery state. Returns end state and per-hour data.
+function simulateDay(dailyGen, dailyCons, patternArr, battKwh, tariff, isSummer, battStart) {
+  const genH = solarDist.map(f => f * dailyGen);
+  const consH = patternArr.map(f => f * dailyCons);
+
+  let battState = battStart;
+  const battMax = battKwh;
+
+  const soldH = new Array(24).fill(0);
+  const boughtH = new Array(24).fill(0);
+  const directSelfH = new Array(24).fill(0);
+  const battStateH = new Array(24).fill(0);
+  const battDischargeH = new Array(24).fill(0);
+
+  for (let h = 0; h < 24; h++) {
+    const gen = genH[h];
+    const cons = consH[h];
+
+    const direct = Math.min(gen, cons);
+    directSelfH[h] = direct;
+    let excess = gen - direct;
+    let deficit = cons - direct;
+
+    if (excess > 0 && battState < battMax) {
+      // need (battMax - battState)/eff units of input to fill
+      const canChargeRaw = (battMax - battState) / BATT_EFFICIENCY;
+      const charged = Math.min(excess, canChargeRaw);
+      battState += charged * BATT_EFFICIENCY;
+      excess -= charged;
+    }
+    if (deficit > 0 && battState > 0) {
+      const canDischarge = Math.min(deficit, battState);
+      battState -= canDischarge;
+      battDischargeH[h] = canDischarge;
+      deficit -= canDischarge;
+    }
+
+    soldH[h] = excess;
+    boughtH[h] = deficit;
+    battStateH[h] = battState;
+  }
+
+  let savingsFromSelf = 0;
+  let salesIncome = 0;
+  for (let h = 0; h < 24; h++) {
+    const buyRate = getBuyRate(h, tariff, isSummer);
+    const consAvoided = consH[h] - boughtH[h];
+    savingsFromSelf += consAvoided * buyRate;
+    salesIncome += soldH[h] * SELL_RATE;
+  }
+
+  const totalGen = genH.reduce((a,b)=>a+b, 0);
+  const totalSelf = consH.map((c,h) => c - boughtH[h]).reduce((a,b)=>a+b, 0);
+
+  return {
+    genH, consH, battStateH, soldH, boughtH, directSelfH, battDischargeH,
+    savings: savingsFromSelf, sales: salesIncome,
+    total: savingsFromSelf + salesIncome,
+    totalGen, totalSelf,
+    selfRate: totalGen > 0 ? totalSelf / totalGen : 0,
+    battEnd: battState
+  };
+}
+
+// Steady-state daily simulation: iterate until battery start state stabilizes
+function simulateSteadyState(dailyGen, dailyCons, patternName, battKwh, tariff, isSummer) {
+  let battStart = battKwh > 0 ? battKwh * 0.5 : 0;
+  let prev = -1;
+  let day;
+  const pattern = consumptionPatterns[patternName];
+  for (let i = 0; i < 10; i++) {
+    day = simulateDay(dailyGen, dailyCons, pattern, battKwh, tariff, isSummer, battStart);
+    if (Math.abs(day.battEnd - battStart) < 0.01) break;
+    prev = battStart;
+    battStart = day.battEnd;
+  }
+  return day;
+}
+
+// === MAIN COMPUTE ===
 
 function recompute() {
-  if (!state.provider) {
-    document.getElementById('results').classList.add('hidden');
-    document.getElementById('placeholder').classList.remove('hidden');
-    return;
-  }
-  const daily = state.monthly / 30;
-  const sz = getSystemSize();
-  const cost = getSystemCost();
-  if (!sz || !cost) {
-    document.getElementById('results').classList.add('hidden');
-    document.getElementById('placeholder').classList.remove('hidden');
-    return;
-  }
-  document.getElementById('results').classList.remove('hidden');
-  document.getElementById('placeholder').classList.add('hidden');
-  const annualGen = sz * YIELD_PER_KWP;
-  const annualCons = daily * 365;
-  const benefit = annual(sz, daily, state.tariff);
-  document.getElementById('annualGen').textContent = Math.round(annualGen).toLocaleString();
-  document.getElementById('annualCons').textContent = Math.round(annualCons).toLocaleString();
-  document.getElementById('dailyConsDisplay').textContent = `צריכה יומית: ${Math.round(daily)} kWh`;
-  document.getElementById('systemCost').textContent = Math.round(cost).toLocaleString();
-  document.getElementById('annualBenefit').textContent = Math.round(benefit).toLocaleString();
+  const dailyGen = (state.size * YIELD_PER_KWP) / 365;
+  const dailyCons = state.daily;
+  const battKwh = state.battCount * 4.7;  // 4.7 kWh per battery
+
+  // For chart and main stats, use selected battery
+  const summer = simulateSteadyState(dailyGen, dailyCons, state.pattern, battKwh, state.tariff, true);
+  const other = simulateSteadyState(dailyGen, dailyCons, state.pattern, battKwh, state.tariff, false);
+
+  const annualTotal = summer.total * SUMMER_DAYS + other.total * OTHER_DAYS;
+  const annualSavings = summer.savings * SUMMER_DAYS + other.savings * OTHER_DAYS;
+  const annualSales = summer.sales * SUMMER_DAYS + other.sales * OTHER_DAYS;
+
+  // No battery baseline for comparison
+  const noBattSummer = simulateSteadyState(dailyGen, dailyCons, state.pattern, 0, state.tariff, true);
+  const noBattOther = simulateSteadyState(dailyGen, dailyCons, state.pattern, 0, state.tariff, false);
+  const noBattTotal = noBattSummer.total * SUMMER_DAYS + noBattOther.total * OTHER_DAYS;
+  const noBattSavings = noBattSummer.savings * SUMMER_DAYS + noBattOther.savings * OTHER_DAYS;
+  const noBattSales = noBattSummer.sales * SUMMER_DAYS + noBattOther.sales * OTHER_DAYS;
+
+  // Comparison: if user has battery selected, use that. Otherwise show default 2 batteries (9.4 kWh).
+  const compareBatt = battKwh > 0 ? battKwh : COMPARE_BATT_DEFAULT;
+  const compareBattCost = battKwh > 0 ? state.battCost : calculateBatteryCost(2, state.provider);
   
-  const notesDiv = document.getElementById('providerNotes');
-  let html = '<h3>הערות חשובות לספק שבחרתם</h3>';
-  if (state.provider === 'solaredge') {
-    html += `<div class="note-item"><strong>• אחריות התקנה:</strong> 3 שנים בלבד (מתחרה: 10 שנים).</div><div class="note-item"><strong>• שירות טכנאי:</strong> 12 שנים חינם לקבוצה.</div><div class="note-item"><strong>• סוללות:</strong> התחייבו על מחיר לדגמים חדשים מאוגוסט.</div><div class="note-item"><strong>• סוגיה טכנית:</strong> אופטימייזר S500B לפאנל 640W - בקשו אישור בכתב.</div><div class="note-item"><strong>• תשלום:</strong> 100% לפני חיבור לרשת. בקשו דחיית 15% להפעלה סופית.</div>`;
+  let compSummer, compOther, compTotal, compSavings, compSales;
+  if (battKwh > 0) {
+    compSummer = summer; compOther = other;
+    compTotal = annualTotal; compSavings = annualSavings; compSales = annualSales;
   } else {
-    html += `<div class="note-item"><strong>• אחריות התקנה:</strong> 10 שנים (טובה מסולראדג'!).</div><div class="note-item"><strong>• גדלים זמינים:</strong> 8.4-23.4 kW בלבד.</div><div class="note-item"><strong>• ניסיון:</strong> קבוצות דומות בכרמית, הרצליה, אורנית.</div><div class="note-item"><strong>• תוספות:</strong> פרגולות סולאריות וגמישות.</div><div class="note-item"><strong>• תשלום:</strong> 10% מ-100% נדחים עד חיבור לרשת.</div>`;
+    compSummer = simulateSteadyState(dailyGen, dailyCons, state.pattern, COMPARE_BATT_DEFAULT, state.tariff, true);
+    compOther = simulateSteadyState(dailyGen, dailyCons, state.pattern, COMPARE_BATT_DEFAULT, state.tariff, false);
+    compTotal = compSummer.total * SUMMER_DAYS + compOther.total * OTHER_DAYS;
+    compSavings = compSummer.savings * SUMMER_DAYS + compOther.savings * OTHER_DAYS;
+    compSales = compSummer.sales * SUMMER_DAYS + compOther.sales * OTHER_DAYS;
   }
-  notesDiv.innerHTML = html;
+
+  // Update stats
+  $('annualGen').textContent = fmt(state.size * YIELD_PER_KWP);
+  $('annualCons').textContent = fmt(state.daily * 365);
+  $('peakPower').textContent = Math.max(...summer.genH).toFixed(1);
+  $('selfRate').textContent = Math.round(summer.selfRate * 100) + '%';
+  
+  if (battKwh > 0) {
+    $('selfRateSub').textContent = `עם סוללת ${battKwh} kWh; ללא סוללה: ${Math.round(noBattSummer.selfRate * 100)}%`;
+  } else {
+    $('selfRateSub').textContent = `מהייצור משמש אתכם ישירות (עם סוללת 10 kWh זה היה: ${Math.round(compSummer.selfRate * 100)}%)`;
+  }
+
+  // Daily consumption %
+  const dayPctSum = consumptionPatterns[state.pattern].slice(8, 17).reduce((a,b)=>a+b, 0);
+  $('dayCons').textContent = Math.round(dayPctSum * 100) + '%';
+
+  // Comparison table label
+  if (battKwh > 0) {
+    const battLabel = state.battCount === 1 ? 'סוללה אחת' : `${state.battCount} סוללות`;
+    $('compareBattSize').textContent = `${battLabel} (${battKwh.toFixed(1)} kWh)`;
+  } else {
+    $('compareBattSize').textContent = `2 סוללות לדוגמה (9.4 kWh) — שנו את מספר הסוללות בפאנל`;
+  }
+  $('savingNoBatt').textContent = fmt(noBattSavings) + ' ₪';
+  $('savingBatt').textContent = fmt(compSavings) + ' ₪';
+  $('incomeNoBatt').textContent = fmt(noBattSales) + ' ₪';
+  $('incomeBatt').textContent = fmt(compSales) + ' ₪';
+  $('totalNoBatt').textContent = fmt(noBattTotal) + ' ₪';
+  $('totalBatt').textContent = fmt(compTotal) + ' ₪';
+  // Payback: find the year where cumulative net benefit covers the investment
+  function calcPayback(annualBenefit, totalInvest) {
+    let cumulative = 0;
+    for (let yr = 1; yr <= 40; yr++) {
+      const factor = Math.pow(1 - state.degrade / 100, yr);
+      const maintCost = (totalInvest * state.maint) / 100;
+      cumulative += annualBenefit * factor - maintCost;
+      if (cumulative >= totalInvest) return yr.toFixed(1);
+    }
+    return '>40';
+  }
+
+  const investNoBatt = state.totalCost;
+  const investBatt = state.totalCost + compareBattCost;
+  const profit25NoBatt = calculate25YearProfit(noBattTotal, investNoBatt, state.maint, state.degrade);
+  const profit25Batt = calculate25YearProfit(compTotal, investBatt, state.maint, state.degrade);
+
+  $('investNoBatt').textContent = fmt(investNoBatt) + ' ₪';
+  $('investBatt').textContent = fmt(investBatt) + ' ₪';
+  $('paybackNoBatt').textContent = calcPayback(noBattTotal, investNoBatt) + ' שנים';
+  $('paybackBatt').textContent = calcPayback(compTotal, investBatt) + ' שנים';
+  $('lifetime25NoBatt').textContent = fmt(profit25NoBatt) + ' ₪';
+  $('lifetime25Batt').textContent = fmt(profit25Batt) + ' ₪';
+
+  updateInsight(battKwh, noBattTotal, compTotal, investNoBatt, investBatt, compareBatt);
+  updateSpreadCard();
+  drawPowerChart(summer);
+  drawBattChart(summer, battKwh);
 }
 
-document.getElementById('tariffSeg').querySelectorAll('button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.getElementById('tariffSeg').querySelectorAll('button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    state.tariff = btn.dataset.val;
-    recompute();
-  });
-});
+function updateSpreadCard() {
+  if (state.tariff === 'flat') {
+    $('buyVal').textContent = '64.32 אג\'';
+    $('buySub').textContent = 'תעריף אחיד 2026';
+    $('spreadVal').textContent = '16.32 אג\'';
+  } else {
+    $('buyVal').textContent = '1.69 ₪ (פסגה)';
+    $('buySub').textContent = 'שעות פסגה קיץ 17-22';
+    $('spreadVal').textContent = '1.21 ₪';
+  }
+}
 
-document.getElementById('monthly').addEventListener('input', e => {
-  state.monthly = parseFloat(e.target.value) || 600;
-  document.getElementById('monthlyVal').textContent = state.monthly;
-  recompute();
-});
+function updateInsight(battKwh, noBattTotal, compTotal, investNoBatt, investBatt, compBattSize) {
+  const insight = $('insight');
+  
+  // Calculate 25-year profit accounting for degradation and maintenance
+  const lifeNoBatt = calculate25YearProfit(noBattTotal, investNoBatt, state.maint, state.degrade);
+  const lifeBatt = calculate25YearProfit(compTotal, investBatt, state.maint, state.degrade);
+  const diff = lifeBatt - lifeNoBatt;
 
-document.getElementById('size').addEventListener('input', e => {
+  if (battKwh === 0) {
+    if (diff > 0) {
+      $('insightTitle').textContent = `סוללה משתלמת - תרוויחו ${fmt(diff)} ₪ ב-25 שנה`;
+      $('insightBody').innerHTML = `<strong>מה הסוללה עושה:</strong> מערכת אגירה משתלמת בדיוק כי מחיר הקנייה גבוה ממחיר ההזרמה. בלי אגירה, כל קוט״ש שמייצר המערכת בעודף מוזרם לרשת ב-48 אג״, אבל בערב אתם קונים אותו חזרה ב-64.32 אג״. <strong>הסוללה תופסת את הפער הזה.</strong> ${state.tariff === 'tou' ? 'בתעריף תעו״ז ההפרש הופך לעוד גדול יותר: 168.95 אג״ (פסגה) מול 52.83 אג״ (נמוך).' : ''}`;
+      insight.style.background = '#065f46';
+    } else {
+      $('insightTitle').textContent = 'סוללה לא משתלמת במצב זה';
+      $('insightBody').innerHTML = `בדפוס הצריכה שלכם, הסוללה לא תחזיר את עצמה תוך 25 שנה. ${state.tariff === 'flat' ? '<strong>נסו לעבור לתעו״ז</strong> - שם הפער בין קנייה להזרמה גדול יותר וסוללה הופכת למשתלמת.' : 'הסיבה: דפוס הצריכה שלכם בשעות שמש כבר נצרך ישירות, מעט נשאר לאחסון.'}`;
+      insight.style.background = '#1a1a1a';
+    }
+  } else {
+    if (diff > 0) {
+      $('insightTitle').textContent = `סוללה משתלמת — תרוויחו ${fmt(diff)} ₪ ב-25 שנה`;
+      $('insightBody').innerHTML = `<strong>מה הסוללה עושה:</strong> היא תופסת את הפער בין מחיר הקנייה (64.32 אג״) למחיר ההזרמה (48 אג״). אתם מייצרים ביום, מאחסנים בסוללה, וצורכים בערב בגובה הפער. ${state.tariff === 'tou' ? 'בתעריף תעו״ז הפער גדול עוד יותר: הפרש של 116.12 אג״ בפסגה!' : ''}`;
+      insight.style.background = '#065f46';
+    } else {
+      $('insightTitle').textContent = 'סוללה לא משתלמת לדפוס הצריכה שלכם';
+      $('insightBody').innerHTML = `ההשקעה בסוללות (${fmt(state.battCost)} ₪) לא מתכסה לאורך 25 שנה. ${state.tariff === 'flat' ? '<strong>נסו תעריף תעו״ז</strong> - הפער בין קנייה להזרמה גדול משמעותית ושם סוללות משתלמות הרבה יותר.' : 'הסיבה: הסוללה כבר קטנה מדי עבור הצורך שלכם או הפער בין קנייה להזרמה קטן מדי.'}`;
+      insight.style.background = '#7c2d12';
+    }
+  }
+}
+
+// Calculate 25-year profit accounting for degradation and maintenance
+function calculate25YearProfit(annualBenefit, initialCost, maintPercent, degradePercent) {
+  let totalBenefit = 0;
+  const annualMaint = (initialCost * maintPercent) / 100;
+  
+  for (let year = 1; year <= 25; year++) {
+    // Degradation: each year produces (1 - degrade%)^year of original
+    const degradationFactor = Math.pow(1 - degradePercent / 100, year);
+    const yearlyBenefit = annualBenefit * degradationFactor;
+    const yearlyMaint = annualMaint;
+    totalBenefit += yearlyBenefit - yearlyMaint;
+  }
+  
+  return totalBenefit - initialCost;
+}
+
+function fmt(n) { return Math.round(n).toLocaleString(); }
+function $(id) { return document.getElementById(id); }
+
+// === CHART (split into two) ===
+
+function drawPowerChart(day) {
+  const W = 760, H = 240;
+  const pad = { top: 24, right: 24, bottom: 40, left: 56 };
+  const innerW = W - pad.left - pad.right;
+  const innerH = H - pad.top - pad.bottom;
+
+  const maxVal = Math.max(...day.genH, ...day.consH) * 1.1;
+  const tickStep = niceTickStep(maxVal);
+
+  const xScale = h => pad.left + (h / 24) * innerW;
+  const yScale = v => pad.top + innerH - (v / maxVal) * innerH;
+
+  const yTicks = [];
+  for (let v = 0; v <= maxVal; v += tickStep) {
+    yTicks.push({ v, y: yScale(v) });
+  }
+  const xTicks = [];
+  for (let h = 0; h <= 24; h += 3) xTicks.push({ h, x: xScale(h) });
+
+  const genPath = areaPath(day.genH, xScale, yScale, pad.top + innerH);
+  const consPath = linePath(day.consH, xScale, yScale);
+
+  // Peak annotation
+  const peakGen = Math.max(...day.genH);
+  const peakIdx = day.genH.indexOf(peakGen);
+
+  const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Heebo',sans-serif;">
+    ${yTicks.map(t => `<line x1="${pad.left}" y1="${t.y}" x2="${W - pad.right}" y2="${t.y}" stroke="#eee" stroke-width="1"/>`).join('')}
+    ${state.tariff === 'tou' ? `
+      <rect x="${xScale(17)}" y="${pad.top}" width="${xScale(22) - xScale(17)}" height="${innerH}" fill="#dc2626" opacity="0.06"/>
+      <text x="${(xScale(17) + xScale(22)) / 2}" y="${pad.top + 14}" text-anchor="middle" font-size="10" fill="#dc2626" font-weight="700">פסגה (1.69 ₪)</text>
+    ` : ''}
+    <path d="${genPath}" fill="var(--sun-soft)" stroke="var(--sun)" stroke-width="1.5"/>
+    <path d="${consPath}" fill="none" stroke="var(--grid)" stroke-width="2" stroke-dasharray="3,2"/>
+
+    <circle cx="${xScale(peakIdx + 0.5)}" cy="${yScale(peakGen)}" r="4" fill="#dc2626"/>
+    <line x1="${xScale(peakIdx + 0.5)}" y1="${yScale(peakGen)}" x2="${xScale(peakIdx + 0.5) - 70}" y2="${yScale(peakGen) - 14}" stroke="#dc2626" stroke-width="1"/>
+    <text x="${xScale(peakIdx + 0.5) - 76}" y="${yScale(peakGen) - 14}" text-anchor="end" font-size="11" fill="#dc2626" font-weight="700">פיק ${peakGen.toFixed(1)} kW</text>
+
+    <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + innerH}" stroke="var(--line)" stroke-width="1.5"/>
+    ${yTicks.map(t => `<text x="${pad.left - 8}" y="${t.y + 4}" text-anchor="end" font-size="11" fill="var(--ink-soft)" font-variant-numeric="tabular-nums">${t.v}</text>`).join('')}
+    <text x="${pad.left - 8}" y="${pad.top - 8}" text-anchor="end" font-size="10" fill="var(--ink-faint)" font-weight="700">kW</text>
+
+    <line x1="${pad.left}" y1="${pad.top + innerH}" x2="${W - pad.right}" y2="${pad.top + innerH}" stroke="var(--line)" stroke-width="1.5"/>
+    ${xTicks.map(t => `
+      <line x1="${t.x}" y1="${pad.top + innerH}" x2="${t.x}" y2="${pad.top + innerH + 4}" stroke="var(--line)" stroke-width="1"/>
+      <text x="${t.x}" y="${pad.top + innerH + 20}" text-anchor="middle" font-size="11" fill="var(--ink-soft)" font-variant-numeric="tabular-nums">${String(t.h).padStart(2,'0')}:00</text>
+    `).join('')}
+  </svg>`;
+  $('powerChartWrap').innerHTML = svg;
+}
+
+function drawBattChart(day, battKwh) {
+  const section = $('battSection');
+  if (battKwh === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+
+  const W = 760, H = 140;
+  const pad = { top: 16, right: 24, bottom: 36, left: 56 };
+  const innerW = W - pad.left - pad.right;
+  const innerH = H - pad.top - pad.bottom;
+
+  const maxVal = battKwh * 1.05;
+  const tickStep = niceTickStep(maxVal);
+
+  const xScale = h => pad.left + (h / 24) * innerW;
+  const yScale = v => pad.top + innerH - (v / maxVal) * innerH;
+
+  const yTicks = [];
+  for (let v = 0; v <= maxVal; v += tickStep) yTicks.push({ v, y: yScale(v) });
+  const xTicks = [];
+  for (let h = 0; h <= 24; h += 3) xTicks.push({ h, x: xScale(h) });
+
+  // Battery area
+  const battArea = areaPath(day.battStateH, xScale, yScale, pad.top + innerH);
+  const battLine = linePath(day.battStateH, xScale, yScale);
+
+  const peakBatt = Math.max(...day.battStateH);
+  const peakBattH = day.battStateH.indexOf(peakBatt);
+
+  const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Heebo',sans-serif;">
+    ${yTicks.map(t => `<line x1="${pad.left}" y1="${t.y}" x2="${W - pad.right}" y2="${t.y}" stroke="#eee" stroke-width="1"/>`).join('')}
+    <path d="${battArea}" fill="var(--battery-soft)" stroke="none" opacity="0.6"/>
+    <path d="${battLine}" fill="none" stroke="var(--battery)" stroke-width="2"/>
+
+    <circle cx="${xScale(peakBattH + 0.5)}" cy="${yScale(peakBatt)}" r="3" fill="var(--battery)"/>
+    <text x="${xScale(peakBattH + 0.5) + 8}" y="${yScale(peakBatt) + 4}" font-size="10" fill="var(--battery)" font-weight="700">${peakBatt.toFixed(1)} kWh</text>
+
+    <line x1="${pad.left}" y1="${pad.top}" x2="${pad.left}" y2="${pad.top + innerH}" stroke="var(--line)" stroke-width="1.5"/>
+    ${yTicks.map(t => `<text x="${pad.left - 8}" y="${t.y + 4}" text-anchor="end" font-size="11" fill="var(--ink-soft)" font-variant-numeric="tabular-nums">${t.v}</text>`).join('')}
+    <text x="${pad.left - 8}" y="${pad.top - 4}" text-anchor="end" font-size="10" fill="var(--ink-faint)" font-weight="700">kWh</text>
+
+    <line x1="${pad.left}" y1="${pad.top + innerH}" x2="${W - pad.right}" y2="${pad.top + innerH}" stroke="var(--line)" stroke-width="1.5"/>
+    ${xTicks.map(t => `
+      <line x1="${t.x}" y1="${pad.top + innerH}" x2="${t.x}" y2="${pad.top + innerH + 4}" stroke="var(--line)" stroke-width="1"/>
+      <text x="${t.x}" y="${pad.top + innerH + 18}" text-anchor="middle" font-size="11" fill="var(--ink-soft)" font-variant-numeric="tabular-nums">${String(t.h).padStart(2,'0')}:00</text>
+    `).join('')}
+  </svg>`;
+  $('battChartWrap').innerHTML = svg;
+}
+
+function niceTickStep(maxVal) {
+  if (maxVal <= 2) return 0.5;
+  if (maxVal <= 5) return 1;
+  if (maxVal <= 10) return 2;
+  if (maxVal <= 20) return 5;
+  return 10;
+}
+
+function areaPath(values, xScale, yScale, bottomY) {
+  let p = `M ${xScale(0)} ${bottomY}`;
+  for (let h = 0; h < 24; h++) p += ` L ${xScale(h + 0.5)} ${yScale(values[h])}`;
+  p += ` L ${xScale(24)} ${bottomY} Z`;
+  return p;
+}
+
+function linePath(values, xScale, yScale) {
+  let p = '';
+  for (let h = 0; h < 24; h++) {
+    p += ` ${h === 0 ? 'M' : 'L'} ${xScale(h + 0.5)} ${yScale(values[h])}`;
+  }
+  return p;
+}
+
+// === UI WIRING ===
+
+$('size')?.addEventListener('change', e => {
   state.size = parseFloat(e.target.value);
-  document.getElementById('sizeVal').textContent = state.size;
+  $('sizeVal').textContent = state.size;
+  state.cost = calculateCostByProvider(state.size, state.provider);
+  updateTotalCost();
   recompute();
 });
 
-document.getElementById('voltaSize').addEventListener('change', e => {
-  state.voltaSize = e.target.value;
+$('bill')?.addEventListener('input', e => {
+  state.monthlyBill = parseFloat(e.target.value);
+  $('billVal').textContent = state.monthlyBill.toLocaleString();
+  state.daily = Math.round(state.monthlyBill / 30 / FLAT_RATE);
+  $('dailyFromBill').textContent = state.daily;
   recompute();
 });
+
+$('battCount')?.addEventListener('input', e => {
+  state.battCount = parseInt(e.target.value) || 0;
+  $('battCountVal').textContent = state.battCount;
+  updateTotalCost();
+  recompute();
+});
+
+function wireSeg(groupId, stateKey, callback) {
+  const group = $(groupId);
+  if (!group) return;
+  group.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.dataset.val;
+      state[stateKey] = isNaN(parseFloat(val)) ? val : parseFloat(val);
+      if (callback) callback(state[stateKey]);
+      recompute();
+    });
+  });
+}
+
+wireSeg('providerSeg', 'provider', (val) => {
+  state.cost = calculateCostByProvider(state.size, val);
+  updateTotalCost();
+  recompute();
+});
+wireSeg('patternSeg', 'pattern');
+wireSeg('tariffSeg', 'tariff');
+
+updateTotalCost();
+recompute();
 </script>
 </body>
 </html>
