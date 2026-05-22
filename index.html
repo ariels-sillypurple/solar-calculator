@@ -835,8 +835,15 @@ function recompute() {
     for (let yr = 1; yr <= 40; yr++) {
       const factor = Math.pow(1 - state.degrade / 100, yr);
       const maintCost = (totalInvest * state.maint) / 100;
-      cumulative += annualBenefit * factor - maintCost;
-      if (cumulative >= totalInvest) return yr.toFixed(1);
+      const thisYear = annualBenefit * factor - maintCost;
+      const prevCumulative = cumulative;
+      cumulative += thisYear;
+      if (cumulative >= totalInvest) {
+        // Interpolate: how far into this year does payback actually occur?
+        const remaining = totalInvest - prevCumulative;
+        const fraction = remaining / thisYear;
+        return (yr - 1 + fraction).toFixed(1);
+      }
     }
     return '>40';
   }
