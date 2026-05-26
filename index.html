@@ -631,10 +631,11 @@ function calculateCostByProvider(size, provider) {
     const closest = keys.reduce((prev, curr) => Math.abs(curr - size) < Math.abs(prev - size) ? curr : prev);
     return voltaPrices[closest];
   } else {
-    // SolarEdge: <15 kWp = 3,800 | ≥15 kWp = 3,600 | ≥21 kWp = 3,500
-    if (size < 15) return size * 3800;
-    if (size < 21) return size * 3600;
-    return size * 3500;
+    // SolarEdge: progressive pricing (like tax brackets)
+    // First 15 kWp at 4,800 | next kWp (15-21) at 3,600 | beyond 21 at 3,500
+    if (size <= 15) return size * 4800;
+    if (size <= 21) return 15 * 4800 + (size - 15) * 3600;
+    return 15 * 4800 + 6 * 3600 + (size - 21) * 3500;
   }
 }
 
@@ -846,10 +847,10 @@ function findOptimalSize() {
     <div style="display:flex;gap:10px;flex-wrap:wrap;">${rows}</div>
     <div style="margin-top:14px;padding:10px 12px;background:#fffbeb;border-radius:6px;font-size:12px;color:#92400e;line-height:1.6;">
       <strong>למה 15 ו-21 kWp?</strong><br>
-      מחיר סולראדג' הוא flat per kWp לפי מדרגות גודל כולל:<br>
-      • מתחת ל-15 kWp: 3,800 ₪/kWp | מ-15 kWp: 3,600 ₪/kWp | מ-21 kWp: 3,500 ₪/kWp<br>
-      • <strong>15 kWp עולה 54,000 ₪</strong> — זול ב-720 ₪ מ-14.4 kWp (54,720 ₪) ועדיין גדול יותר.<br>
-      • <strong>21 kWp עולה 73,500 ₪</strong> — כמעט אותו מחיר כמו 20.4 kWp (73,440 ₪), עם 0.6 kWp נוסף.
+      מחיר סולראדג' הוא <strong>פרוגרסיבי</strong> (כמו מדרגות מס):<br>
+      • 15 kWp ראשונים: 4,800 ₪/kWp → סה"כ 72,000 ₪<br>
+      • כל kWp נוסף מ-15 עד 21: <strong>3,600 ₪ בלבד</strong> — ROI שולי טוב יותר<br>
+      • כל kWp נוסף מ-21 ומעלה: <strong>3,500 ₪ בלבד</strong> — ROI שולי הטוב ביותר
     </div>`;
 }
 
