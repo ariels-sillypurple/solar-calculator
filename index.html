@@ -446,7 +446,7 @@
           <span class="value"><span id="battCountVal">0</span></span>
         </div>
         <input type="number" id="battCount" value="0" min="0" max="10" step="1">
-        <div class="pattern-help">סולראדג': ראשונה 12,600 ₪ (ממיר+BUI), כל נוספת 8,000 ₪</div>
+        <div class="pattern-help" id="battPriceHint">סולראדג': 1 סוללה 12,600 ₪ | 2 סוללות 18,600 ₪ | נוספת 6,000 ₪</div>
       </div>
  
       <div class="field" style="background:#f0fdf4;padding:12px;margin-bottom:20px;border-left:4px solid #10b981;">
@@ -641,19 +641,21 @@ function calculateCostByProvider(size, provider) {
 // Calculate battery cost based on provider and number of batteries
 function calculateBatteryCost(battCount, provider) {
   if (battCount === 0) return 0;
-  
+ 
   if (provider === 'solaredge') {
-    // First battery: 12,600 ₪ (includes inverter + BUI)
-    // Each additional: 8,000 ₪
+    // 1 battery (inverter+BUI+battery): 12,600 ₪
+    // 2 batteries: 18,600 ₪
+    // Each additional beyond 2: 6,000 ₪
     if (battCount === 1) return 12600;
-    return 12600 + (battCount - 1) * 8000;
+    if (battCount === 2) return 18600;
+    return 18600 + (battCount - 2) * 6000;
   } else if (provider === 'volta') {
-    // Volta pricing varies by system size
-    // Up to 27 panels: 16,800 ₪
-    // Over 27 panels: 19,800 ₪
-    // For simplicity, use 16,800 for now
-    if (battCount === 0) return 0;
-    return battCount > 0 ? 16800 : 0;
+    // 1 battery: 12,000 ₪
+    // 2 batteries: 17,500 ₪
+    // Each additional beyond 2: 5,500 ₪
+    if (battCount === 1) return 12000;
+    if (battCount === 2) return 17500;
+    return 17500 + (battCount - 2) * 5500;
   }
   return 0;
 }
@@ -1199,6 +1201,12 @@ function wireSeg(groupId, stateKey, callback) {
 wireSeg('providerSeg', 'provider', (val) => {
   state.cost = calculateCostByProvider(state.size, val);
   updateTotalCost();
+  // Update battery hint
+  if ($('battPriceHint')) {
+    $('battPriceHint').textContent = val === 'solaredge'
+      ? 'סולראדג\u05f4: 1 סוללה 12,600 ₪ | 2 סוללות 18,600 ₪ | נוספת 6,000 ₪'
+      : 'וולטה: 1 סוללה 12,000 ₪ | 2 סוללות 17,500 ₪ | נוספת 5,500 ₪';
+  }
   recompute();
 });
 wireSeg('patternSeg', 'pattern');
